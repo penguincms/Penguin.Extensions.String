@@ -19,7 +19,18 @@ namespace Penguin.Extensions.String
         /// <returns>The value without non-numeric characters</returns>
         public static string ToNumeric(this string input)
         {
-            return new string(input.Where(c => char.IsDigit(c)).ToArray());
+            char[] result = new char[input.Length];
+
+            int index = 0;
+            for(int i = 0; i < input.Length; i++)
+            {
+                if (char.IsDigit(input[i]))
+                {
+                    result[index++] = input[i];
+                }
+            }
+
+            return new string(result, 0, index);
         }
 
         /// <summary>
@@ -27,24 +38,24 @@ namespace Penguin.Extensions.String
         /// </summary>
         /// <param name="str">The source string</param>
         /// <param name="value">The string to find</param>
+        /// <param name="comparisonType">The comparison type to pass into the index function</param>
         /// <returns>A list of indexes where the value is found</returns>
-        public static List<int> AllIndexesOf(this string str, string value)
+        public static IEnumerable<int> AllIndexesOf(this string str, string value, StringComparison comparisonType = StringComparison.Ordinal)
         {
             if (string.IsNullOrEmpty(value))
             {
                 throw new ArgumentException("the string to find may not be empty", "value");
             }
 
-            List<int> indexes = new List<int>();
-            for (int index = 0; ; index += value.Length)
+            for (int index = 0; ; index++)
             {
-                index = str.IndexOf(value, index);
+                index = str.IndexOf(value, index, comparisonType);
                 if (index == -1)
                 {
-                    return indexes;
+                    yield break;
                 }
 
-                indexes.Add(index);
+                yield return index;
             }
         }
 
@@ -53,23 +64,17 @@ namespace Penguin.Extensions.String
         /// </summary>
         /// <param name="s">The source string</param>
         /// <param name="search">The substring to search for</param>
-        /// <param name="ignoreCase">Optional bool for ignoring case</param>
+        /// <param name="comparisonType">The comparison type to pass into the index function</param>
         /// <returns>A value indicating if the substring was found</returns>
-        public static bool Contains(this string s, string search, bool ignoreCase)
+        public static bool Contains(this string s, string search, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (s == null)
+            if (s is null)
             {
                 return false;
             }
 
-            if (ignoreCase)
-            {
-                return s.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0;
-            }
-            else
-            {
-                return s.Contains(search);
-            }
+            return s.IndexOf(search, comparisonType) >= 0;
+
         }
 
         /// <summary>
@@ -82,9 +87,9 @@ namespace Penguin.Extensions.String
         public static string Enclose(this string input, string openingclosing, bool inclusive = true) => input.Enclose(openingclosing, openingclosing, inclusive);
 
         /// <summary>
-        ///
+        /// Finds a substring between two anchor characters. Allows for nested
         /// </summary>
-        /// <param name="input">Finds a substring between two anchor characters. Allows for nested</param>
+        /// <param name="input">The string to search</param>
         /// <param name="opening">The opening character</param>
         /// <param name="closing">The closing character</param>
         /// <param name="inclusive"></param>
@@ -135,26 +140,26 @@ namespace Penguin.Extensions.String
         /// <returns>The substring found after the first instance of the delimiter</returns>
         public static string From(this string s, string fromText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
-            string thisString = s;
-
             if (s is null)
             {
                 return null;
             }
 
-            if (s.IndexOf(fromText, comparison) >= 0)
+            int i = s.IndexOf(fromText, comparison);
+
+            if (i >= 0)
             {
                 if (inclusive)
                 {
-                    thisString = s.Substring(s.IndexOf(fromText, comparison));
+                    return s.Substring(i);
                 }
                 else
                 {
-                    thisString = s.Substring(s.IndexOf(fromText, comparison) + fromText.Length);
+                    return s.Substring(i + fromText.Length);
                 }
             }
 
-            return thisString;
+            return s;
         }
 
         /// <summary>
@@ -165,19 +170,19 @@ namespace Penguin.Extensions.String
         /// <returns>The substring found after the last instance of the delimiter</returns>
         public static string FromLast(this string s, string fromText)
         {
-            string thisString = s;
-
             if (s is null)
             {
                 return null;
             }
 
-            if (s.Contains(fromText))
+            int i = s.LastIndexOf(fromText);
+
+            if (i >= 0)
             {
-                thisString = s.Substring(s.LastIndexOf(fromText) + fromText.Length);
+                return s.Substring(i + fromText.Length);
             }
 
-            return thisString;
+            return s;
         }
 
         /// <summary>
@@ -188,19 +193,12 @@ namespace Penguin.Extensions.String
         /// <returns>The substring found after the last instance of the delimiter</returns>
         public static string FromLast(this string s, char fromText)
         {
-            string thisString = s;
-
             if (s is null)
             {
                 return null;
             }
 
-            if (s.Contains(fromText))
-            {
-                thisString = s.Substring(s.LastIndexOf(fromText) + 1);
-            }
-
-            return thisString;
+            return s.Substring(s.LastIndexOf(fromText) + 1);
         }
 
         /// <summary>
@@ -236,10 +234,11 @@ namespace Penguin.Extensions.String
         /// <returns>A new string with the character replaced</returns>
         public static string ReplaceAt(this string input, int index, char newChar)
         {
-            if (input == null)
+            if (input is null)
             {
                 throw new ArgumentNullException("input");
             }
+
             char[] chars = input.ToCharArray();
             chars[index] = newChar;
             return new string(chars);
@@ -282,36 +281,43 @@ namespace Penguin.Extensions.String
         }
 
         /// <summary>
-        /// Splits a string on substrings by first replacing it with the specified char
-        /// </summary>
-        /// <param name="s">The source string to split</param>
-        /// <param name="spliton">The string to split on</param>
-        /// <param name="tempDelimiter">The temporary character to use as a delimiter</param>
-        /// <returns>An array of strings</returns>
-        public static string[] Split(this string s, string spliton, char tempDelimiter = '§')
-        {
-            if (s.Contains(tempDelimiter))
-            {
-                throw new ArgumentException("The source string can not contain the temporary delimiter");
-            }
-
-            return s.Replace(spliton, tempDelimiter.ToString()).Split(tempDelimiter);
-        }
-
-        /// <summary>
         /// Splits a CamelCase string on each uppercase letter by adding a space in front of each
         /// </summary>
         /// <param name="str">The string to split</param>
         /// <returns>A string where each uppercase letter is preceded by a space</returns>
-        public static string SplitCamelCase(this string str) => Regex.Replace(
-                Regex.Replace(
-                    str,
-                    @"(\P{Ll})(\P{Ll}\p{Ll})",
-                    "$1 $2"
-                ),
-                @"(\p{Ll})(\P{Ll})",
-                "$1 $2"
-            );
+        public static string SplitCamelCase(this string str)
+        {
+            if(str is null)
+            {
+                return null;
+            }
+
+            int uppers = 0;
+
+            foreach(char c in str.Skip(1))
+            {
+                if(char.IsUpper(c))
+                {
+                    uppers++;
+                }
+            }
+
+            char[] toReturn = new char[str.Length + uppers];
+
+            toReturn[0] = str[0];
+
+            int index = 1;
+            for(int i = 1; i < str.Length; i++)
+            {
+                if (char.IsUpper(str[i]))
+                {
+                    toReturn[index++] = ' ';
+                }
+                toReturn[index++] = str[i];
+            }
+
+            return new string(toReturn);
+        }
 
         /// <summary>
         /// Splits a CSV row on the specified delimeter. Supports quoted
@@ -390,14 +396,6 @@ namespace Penguin.Extensions.String
         }
 
         /// <summary>
-        /// Checks if a specified string starts with another string
-        /// </summary>
-        /// <param name="s">The string to check</param>
-        /// <param name="search">The substring to test for</param>
-        /// <returns>A bool indicating whether or not the source starts with the substring</returns>
-        public static bool StartsWith(this string s, string search) => s.Substring(0, search.Length) == search;
-
-        /// <summary>
         /// Returns the portion of a string up until the first instance of a delimiter
         /// </summary>
         /// <param name="s">The source</param>
@@ -410,21 +408,21 @@ namespace Penguin.Extensions.String
             if (s is null)
             { return null; }
 
-            string thisString = s;
+            int i = s.IndexOf(toText, comparison);
 
-            if (s.IndexOf(toText, comparison) >= 0)
+            if (i >= 0)
             {
                 if (inclusive)
                 {
-                    thisString = s.Substring(0, s.IndexOf(toText, comparison) + toText.Length);
+                    return s.Substring(0, i + toText.Length);
                 }
                 else
                 {
-                    thisString = s.Substring(0, s.IndexOf(toText, comparison));
+                    return s.Substring(0, i);
                 }
             }
 
-            return thisString;
+            return s;
         }
 
         /// <summary>
@@ -434,7 +432,7 @@ namespace Penguin.Extensions.String
         /// <returns>The source string in AlphaNumeric</returns>
         public static string ToAlphaNumeric(this string str)
         {
-            if (str == null)
+            if (str is null)
             {
                 return null;
             }
@@ -475,16 +473,25 @@ namespace Penguin.Extensions.String
         /// <returns>An integer representing the string value, or 0 if empty</returns>
         public static int ToInt(this string input)
         {
-            string toParse = Regex.Replace(input, @"[^\d]", string.Empty);
+            char[] toReturn = new char[input.Length];
 
-            if (string.IsNullOrWhiteSpace(toParse))
+            int index = 0;
+            for(int i = 0; i < input.Length; i++)
+            {
+                if(input[i] == '-' || char.IsDigit(input[i]))
+                {
+                    toReturn[index++] = input[i];
+                }
+            }
+
+            if(index == 0)
             {
                 return 0;
-            }
-            else
+            } else
             {
-                return int.Parse(toParse);
+                return int.Parse(new string(toReturn, 0, index));
             }
+
         }
 
         /// <summary>
@@ -497,21 +504,21 @@ namespace Penguin.Extensions.String
         /// <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         public static string ToLast(this string s, string toText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
-            string thisString = s;
+            int i = s.IndexOf(toText, comparison);
 
-            if (s.IndexOf(toText, comparison) >= 0)
+            if (i >= 0)
             {
                 if (inclusive)
                 {
-                    thisString = s.Substring(0, s.LastIndexOf(toText, comparison) + toText.Length);
+                    return s.Substring(0, i + toText.Length);
                 }
                 else
                 {
-                    thisString = s.Substring(0, s.LastIndexOf(toText, comparison));
+                    return s.Substring(0, i);
                 }
             }
 
-            return thisString;
+            return s;
         }
 
         /// <summary>
@@ -525,19 +532,9 @@ namespace Penguin.Extensions.String
         {
             string thisString = s;
 
-            if (s.Contains(toText))
-            {
-                if (inclusive)
-                {
-                    thisString = s.Substring(0, s.LastIndexOf(toText) + 1);
-                }
-                else
-                {
-                    thisString = s.Substring(0, s.LastIndexOf(toText));
-                }
-            }
+            int i = s.LastIndexOf(toText);
 
-            return thisString;
+            return s.Substring(0, s.LastIndexOf(toText) + 1);
         }
 
         #endregion Methods

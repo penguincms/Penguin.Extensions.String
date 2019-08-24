@@ -73,21 +73,22 @@
             <param name="input">The original value</param>
             <returns>The value without non-numeric characters</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.AllIndexesOf(System.String,System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.AllIndexesOf(System.String,System.String,System.StringComparison)">
             <summary>
             Returns a list of indexes for the specified string
             </summary>
             <param name="str">The source string</param>
             <param name="value">The string to find</param>
+            <param name="comparisonType">The comparison type to pass into the index function</param>
             <returns>A list of indexes where the value is found</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.Contains(System.String,System.String,System.Boolean)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Contains(System.String,System.String,System.StringComparison)">
             <summary>
             Checks if the parent string contains the substring, with optional case inequality
             </summary>
             <param name="s">The source string</param>
             <param name="search">The substring to search for</param>
-            <param name="ignoreCase">Optional bool for ignoring case</param>
+            <param name="comparisonType">The comparison type to pass into the index function</param>
             <returns>A value indicating if the substring was found</returns>
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.Enclose(System.String,System.String,System.Boolean)">
@@ -100,14 +101,14 @@
             <returns>The substring between the nested characters</returns>
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.Enclose(System.String,System.String,System.String,System.Boolean)">
-             <summary>
-            
-             </summary>
-             <param name="input">Finds a substring between two anchor characters. Allows for nested</param>
-             <param name="opening">The opening character</param>
-             <param name="closing">The closing character</param>
-             <param name="inclusive"></param>
-             <returns>The substring between the nested characters</returns>
+            <summary>
+            Finds a substring between two anchor characters. Allows for nested
+            </summary>
+            <param name="input">The string to search</param>
+            <param name="opening">The opening character</param>
+            <param name="closing">The closing character</param>
+            <param name="inclusive"></param>
+            <returns>The substring between the nested characters</returns>
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.From(System.String,System.String,System.Boolean,System.StringComparison)">
             <summary>
@@ -178,15 +179,6 @@
             <param name="options">String split options for the initial split</param>
             <returns>An array of strings</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.Split(System.String,System.String,System.Char)">
-            <summary>
-            Splits a string on substrings by first replacing it with the specified char
-            </summary>
-            <param name="s">The source string to split</param>
-            <param name="spliton">The string to split on</param>
-            <param name="tempDelimiter">The temporary character to use as a delimiter</param>
-            <returns>An array of strings</returns>
-        </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.SplitCamelCase(System.String)">
             <summary>
             Splits a CamelCase string on each uppercase letter by adding a space in front of each
@@ -201,14 +193,6 @@
             <param name="row">The string to split</param>
             <param name="delimiter">The column delimiter</param>
             <returns>An IEnumerable used to obtain the split values</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.StartsWith(System.String,System.String)">
-            <summary>
-            Checks if a specified string starts with another string
-            </summary>
-            <param name="s">The string to check</param>
-            <param name="search">The substring to test for</param>
-            <returns>A bool indicating whether or not the source starts with the substring</returns>
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.To(System.String,System.String,System.Boolean,System.StringComparison)">
             <summary>
