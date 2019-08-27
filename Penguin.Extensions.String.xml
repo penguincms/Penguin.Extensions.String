@@ -211,12 +211,14 @@
             <param name="str">The source string</param>
             <returns>The source string in AlphaNumeric</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.ToDictionary(System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToDictionary(System.String,System.Char,System.Char)">
             <summary>
-            Splits a string into a dictionary as denoted by = and ; characters
+            Splits a string into a dictionary as denoted by the provided K/V seperator and KVP delimeter characters
             </summary>
             <param name="source">The source string to split</param>
-            <returns>A dictionary representing the values</returns>
+            <param name="delimeter">The character that separates the key value pairs</param>
+            <param name="separator">The character that separates the key and value within the pair</param>
+            <returns>A dictionary representing the values</returns> 
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.ToInt(System.String)">
             <summary>

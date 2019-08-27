@@ -445,25 +445,27 @@ namespace Penguin.Extensions.String
         }
 
         /// <summary>
-        /// Splits a string into a dictionary as denoted by = and ; characters
+        /// Splits a string into a dictionary as denoted by the provided K/V seperator and KVP delimeter characters
         /// </summary>
         /// <param name="source">The source string to split</param>
-        /// <returns>A dictionary representing the values</returns>
-        public static Dictionary<string, string> ToDictionary(this string source)
+        /// <param name="delimeter">The character that separates the key value pairs</param>
+        /// <param name="separator">The character that separates the key and value within the pair</param>
+        /// <returns>A dictionary representing the values</returns> 
+        public static Dictionary<string, string> ToDictionary(this string source, char delimeter = ';', char separator = '=')
         {
-            if (!source.Contains("="))
+            if (!source.Contains(separator))
             {
                 return new Dictionary<string, string>();
             }
 
-            int eq = source.Count(c => c == '=');
-            int sc = source.Count(c => c == ';');
+            int eq = source.Count(c => c == separator);
+            int sc = source.Count(c => c == delimeter);
             if (sc != eq - 1 && sc != eq)
             {
                 return new Dictionary<string, string>();
             }
 
-            return source.Split(';').Where(v => !string.IsNullOrWhiteSpace(v)).ToDictionary(k => k.Split('=')[0], v => v.Split('=')[1]);
+            return source.Split(delimeter).Where(v => !string.IsNullOrWhiteSpace(v)).ToDictionary(k => k.Split(separator)[0], v => v.Split(separator)[1]);
         }
 
         /// <summary>
