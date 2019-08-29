@@ -506,7 +506,7 @@ namespace Penguin.Extensions.String
         /// <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         public static string ToLast(this string s, string toText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
-            int i = s.IndexOf(toText, comparison);
+            int i = s.LastIndexOf(toText, comparison);
 
             if (i >= 0)
             {
