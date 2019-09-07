@@ -1,11 +1,10 @@
 ﻿namespace Penguin.Extensions.String.Compatibility
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
     public static class StringExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        #region Methods
-
         /// <summary>
         /// Adds the ability to call IsNullOrWhiteSpace as an extension
         /// </summary>
@@ -20,7 +19,5 @@
 
             return string.IsNullOrEmpty(value.Trim());
         }
-
-        #endregion Methods
     }
 }

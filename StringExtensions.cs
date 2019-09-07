@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Penguin.Extensions.String
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
     public static class StringExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        #region Methods
-
         /// <summary>
         /// Strips non-numeric characters from a string
         /// </summary>
@@ -22,7 +20,7 @@ namespace Penguin.Extensions.String
             char[] result = new char[input.Length];
 
             int index = 0;
-            for(int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 if (char.IsDigit(input[i]))
                 {
@@ -74,7 +72,6 @@ namespace Penguin.Extensions.String
             }
 
             return s.IndexOf(search, comparisonType) >= 0;
-
         }
 
         /// <summary>
@@ -287,16 +284,16 @@ namespace Penguin.Extensions.String
         /// <returns>A string where each uppercase letter is preceded by a space</returns>
         public static string SplitCamelCase(this string str)
         {
-            if(str is null)
+            if (str is null)
             {
                 return null;
             }
 
             int uppers = 0;
 
-            foreach(char c in str.Skip(1))
+            foreach (char c in str.Skip(1))
             {
-                if(char.IsUpper(c))
+                if (char.IsUpper(c))
                 {
                     uppers++;
                 }
@@ -307,7 +304,7 @@ namespace Penguin.Extensions.String
             toReturn[0] = str[0];
 
             int index = 1;
-            for(int i = 1; i < str.Length; i++)
+            for (int i = 1; i < str.Length; i++)
             {
                 if (char.IsUpper(str[i]))
                 {
@@ -450,7 +447,7 @@ namespace Penguin.Extensions.String
         /// <param name="source">The source string to split</param>
         /// <param name="delimeter">The character that separates the key value pairs</param>
         /// <param name="separator">The character that separates the key and value within the pair</param>
-        /// <returns>A dictionary representing the values</returns> 
+        /// <returns>A dictionary representing the values</returns>
         public static Dictionary<string, string> ToDictionary(this string source, char delimeter = ';', char separator = '=')
         {
             if (!source.Contains(separator))
@@ -478,22 +475,22 @@ namespace Penguin.Extensions.String
             char[] toReturn = new char[input.Length];
 
             int index = 0;
-            for(int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
-                if(input[i] == '-' || char.IsDigit(input[i]))
+                if (input[i] == '-' || char.IsDigit(input[i]))
                 {
                     toReturn[index++] = input[i];
                 }
             }
 
-            if(index == 0)
+            if (index == 0)
             {
                 return 0;
-            } else
+            }
+            else
             {
                 return int.Parse(new string(toReturn, 0, index));
             }
-
         }
 
         /// <summary>
@@ -538,7 +535,5 @@ namespace Penguin.Extensions.String
 
             return s.Substring(0, s.LastIndexOf(toText) + 1);
         }
-
-        #endregion Methods
     }
 }

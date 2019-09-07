@@ -5,11 +5,10 @@ using System.Text.RegularExpressions;
 namespace Penguin.Extensions.String.Html
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
     public static class StringExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        #region Methods
-
         /// <summary>
         /// Returns a list of strings representing HTML elements with a certain attribute value
         /// </summary>
@@ -80,7 +79,5 @@ namespace Penguin.Extensions.String.Html
 
             return input.From(">").To("<");
         }
-
-        #endregion Methods
     }
 }

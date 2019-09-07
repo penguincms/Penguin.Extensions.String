@@ -218,7 +218,7 @@
             <param name="source">The source string to split</param>
             <param name="delimeter">The character that separates the key value pairs</param>
             <param name="separator">The character that separates the key and value within the pair</param>
-            <returns>A dictionary representing the values</returns> 
+            <returns>A dictionary representing the values</returns>
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.ToInt(System.String)">
             <summary>

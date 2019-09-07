@@ -4,11 +4,10 @@ using System.Text;
 namespace Penguin.Extensions.String.Security
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
     public static class StringExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        #region Methods
-
         /// <summary>
         /// Generates a salted MD5 hash of the string
         /// </summary>
@@ -57,7 +56,5 @@ namespace Penguin.Extensions.String.Security
 
             return hashValue;
         }
-
-        #endregion Methods
     }
 }

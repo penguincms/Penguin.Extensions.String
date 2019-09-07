@@ -3,11 +3,10 @@
 namespace Penguin.Extensions.String.Validation
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
     public static class StringExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        #region Methods
-
         /// <summary>
         /// Attempts to validate whether or not a string represents a valid email address
         /// </summary>
@@ -21,7 +20,5 @@ namespace Penguin.Extensions.String.Validation
         /// <param name="toTest">The string to validate</param>
         /// <returns>A bool representing whether or not the Url is valid</returns>
         public static bool IsValidUrl(this string toTest) => Regex.IsMatch(toTest, @"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,; .]+$");
-
-        #endregion Methods
     }
 }
