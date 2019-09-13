@@ -58,6 +58,20 @@
             <param name="b">The second string to compare</param>
             <returns></returns>
         </member>
+        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha256Hash(System.String)">
+            <summary>
+            Computes an SHA256 hash
+            </summary>
+            <param name="input">The string to hash</param>
+            <returns>The hashed string</returns>
+        </member>
+        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha1Hash(System.String)">
+            <summary>
+            Computes an SHA1 hash
+            </summary>
+            <param name="input">The string to hash</param>
+            <returns>The hashed string</returns>
+        </member>
         <member name="M:Penguin.Extensions.String.Security.StringExtensions.SHA512(System.String,System.Byte[])">
             <summary>
             Generates a salted MD5 hash of the string

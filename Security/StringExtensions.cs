@@ -9,6 +9,51 @@ namespace Penguin.Extensions.String.Security
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         /// <summary>
+        /// Computes an SHA256 hash
+        /// </summary>
+        /// <param name="input">The string to hash</param>
+        /// <returns>The hashed string</returns>
+        public static string ComputeSha256Hash(this string input)
+        {
+            // Create a SHA256   
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Computes an SHA1 hash
+        /// </summary>
+        /// <param name="input">The string to hash</param>
+        /// <returns>The hashed string</returns>
+        public static string ComputeSha1Hash(this string input)
+        {
+            using (SHA1Managed sha1 = new SHA1Managed())
+            {
+                byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
+                StringBuilder sb = new StringBuilder(hash.Length * 2);
+
+                foreach (byte b in hash)
+                {
+                    // can be "x2" if you want lowercase
+                    sb.Append(b.ToString("x2"));
+                }
+
+                return sb.ToString();
+            }
+        }
+
+        /// <summary>
         /// Generates a salted MD5 hash of the string
         /// </summary>
         /// <param name="plainText">The input string</param>
