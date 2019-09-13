@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Penguin.Extensions.String.Security
@@ -58,8 +59,17 @@ namespace Penguin.Extensions.String.Security
         /// </summary>
         /// <param name="plainText">The input string</param>
         /// <param name="saltBytes">Optional bytes to override the default salt</param>
-        /// <returns></returns>
-        public static string SHA512(this string plainText, byte[] saltBytes = null)
+        /// <returns>The hashed string</returns>
+        [Obsolete("Use ComputeSha512Hash")]
+        public static string SHA512(this string plainText, byte[] saltBytes = null) => plainText.ComputeSha512Hash(saltBytes);
+
+        /// <summary>
+        /// Generates a salted MD5 hash of the string
+        /// </summary>
+        /// <param name="plainText">The input string</param>
+        /// <param name="saltBytes">Optional bytes to override the default salt</param>
+        /// <returns>The hashed string</returns>
+        public static string ComputeSha512Hash(this string input, byte[] saltBytes = null)
         {
             if (plainText is null)
             {
