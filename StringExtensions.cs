@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace Penguin.Extensions.String
+namespace Penguin.Extensions.Strings
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
     public static class StringExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+        private const string EmptyStringMessage = "The string to find may not be empty";
+
         /// <summary>
         /// Strips non-numeric characters from a string
         /// </summary>
@@ -17,6 +20,11 @@ namespace Penguin.Extensions.String
         /// <returns>The value without non-numeric characters</returns>
         public static string ToNumeric(this string input)
         {
+            if(input is null)
+            {
+                return null;
+            }
+
             char[] result = new char[input.Length];
 
             int index = 0;
@@ -31,6 +39,7 @@ namespace Penguin.Extensions.String
             return new string(result, 0, index);
         }
 
+
         /// <summary>
         /// Returns a list of indexes for the specified string
         /// </summary>
@@ -38,11 +47,12 @@ namespace Penguin.Extensions.String
         /// <param name="value">The string to find</param>
         /// <param name="comparisonType">The comparison type to pass into the index function</param>
         /// <returns>A list of indexes where the value is found</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static IEnumerable<int> AllIndexesOf(this string str, string value, StringComparison comparisonType = StringComparison.Ordinal)
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException("the string to find may not be empty", "value");
+                throw new ArgumentException(EmptyStringMessage, nameof(value));
             }
 
             for (int index = 0; ; index++)
@@ -83,6 +93,7 @@ namespace Penguin.Extensions.String
         /// <returns>The substring between the nested characters</returns>
         public static string Enclose(this string input, string openingclosing, bool inclusive = true) => input.Enclose(openingclosing, openingclosing, inclusive);
 
+
         /// <summary>
         /// Finds a substring between two anchor characters. Allows for nested
         /// </summary>
@@ -91,8 +102,24 @@ namespace Penguin.Extensions.String
         /// <param name="closing">The closing character</param>
         /// <param name="inclusive"></param>
         /// <returns>The substring between the nested characters</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string Enclose(this string input, string opening, string closing, bool inclusive = true)
         {
+            if(input is null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(opening))
+            {
+                throw new ArgumentException(EmptyStringMessage, nameof(opening));
+            }
+
+            if (string.IsNullOrEmpty(closing))
+            {
+                throw new ArgumentException(EmptyStringMessage, nameof(closing));
+            }
+
             int count = 0;
             bool started = false;
 
@@ -127,6 +154,7 @@ namespace Penguin.Extensions.String
             return result;
         }
 
+
         /// <summary>
         /// Returns the portion of the source string after the first instance of the delimiter
         /// </summary>
@@ -135,11 +163,17 @@ namespace Penguin.Extensions.String
         /// <param name="inclusive">A bool indicating whether or not the delimiter should be returned with the result</param>
         /// <param name="comparison">The string comparision to use when searching for a match</param>
         /// <returns>The substring found after the first instance of the delimiter</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string From(this string s, string fromText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
             if (s is null)
             {
                 return null;
+            }
+
+            if (string.IsNullOrEmpty(fromText))
+            {
+                throw new ArgumentException(EmptyStringMessage, nameof(fromText));
             }
 
             int i = s.IndexOf(fromText, comparison);
@@ -172,7 +206,12 @@ namespace Penguin.Extensions.String
                 return null;
             }
 
-            int i = s.LastIndexOf(fromText);
+            if (fromText is null)
+            {
+                throw new ArgumentNullException(nameof(fromText));
+            }
+
+            int i = s.LastIndexOf(fromText, StringComparison.OrdinalIgnoreCase);
 
             if (i >= 0)
             {
@@ -204,7 +243,7 @@ namespace Penguin.Extensions.String
         /// <param name="str">The source string</param>
         /// <param name="count">The number of characters to return</param>
         /// <returns>A substring of the specified length from the source string</returns>
-        public static string Left(this string str, int count) => str.Substring(0, count);
+        public static string Left(this string str, int count) => str?.Substring(0, count);
 
         /// <summary>
         /// Removes all instances of the specified string, from the source (using Replace)
@@ -233,7 +272,7 @@ namespace Penguin.Extensions.String
         {
             if (input is null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException(nameof(input));
             }
 
             char[] chars = input.ToCharArray();
@@ -267,6 +306,11 @@ namespace Penguin.Extensions.String
         /// <returns>An array of strings</returns>
         public static string[] Split(this string input, string spliton, bool preserveSplit = false, StringSplitOptions options = StringSplitOptions.None)
         {
+            if (input is null)
+            {
+                return null;
+            }
+
             string[] output = input.Split(new string[] { spliton }, options);
 
             if (preserveSplit)
@@ -327,7 +371,7 @@ namespace Penguin.Extensions.String
             StringBuilder currentString = new StringBuilder();
             bool inQuotes = false;
             bool quoteIsEscaped = false; //Store when a quote has been escaped.
-            row = string.Format("{0}{1}", row, delimiter); //We add new cells at the delimiter, so append one for the parser.
+            row = $"{row}{delimiter}"; //We add new cells at the delimiter, so append one for the parser.
             foreach (var character in row.Select((val, index) => new { val, index }))
             {
                 if (character.val == delimiter) //We hit a delimiter character...
@@ -392,6 +436,7 @@ namespace Penguin.Extensions.String
             }
         }
 
+
         /// <summary>
         /// Returns the portion of a string up until the first instance of a delimiter
         /// </summary>
@@ -400,10 +445,18 @@ namespace Penguin.Extensions.String
         /// <param name="inclusive">A bool indicating whether or not the delimiter should be included in the return</param>
         /// <param name="comparison">String comparison options</param>
         /// <returns>The portion of a string up until the first instance of a delimiter</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string To(this string s, string toText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
             if (s is null)
-            { return null; }
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(toText))
+            {
+                throw new ArgumentException(EmptyStringMessage, nameof(toText));
+            }
 
             int i = s.IndexOf(toText, comparison);
 
@@ -450,6 +503,11 @@ namespace Penguin.Extensions.String
         /// <returns>A dictionary representing the values</returns>
         public static Dictionary<string, string> ToDictionary(this string source, char delimeter = ';', char separator = '=')
         {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
             if (!source.Contains(separator))
             {
                 return new Dictionary<string, string>();
@@ -465,13 +523,20 @@ namespace Penguin.Extensions.String
             return source.Split(delimeter).Where(v => !string.IsNullOrWhiteSpace(v)).ToDictionary(k => k.Split(separator)[0], v => v.Split(separator)[1]);
         }
 
+
         /// <summary>
         /// Parses a string to its Int value by stripping out invalid characters
         /// </summary>
         /// <param name="input">The input string to parse</param>
         /// <returns>An integer representing the string value, or 0 if empty</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         public static int ToInt(this string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return 0;
+            }
+
             char[] toReturn = new char[input.Length];
 
             int index = 0;
@@ -503,6 +568,16 @@ namespace Penguin.Extensions.String
         /// <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         public static string ToLast(this string s, string toText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
+            if (s is null)
+            {
+                return null;
+            }
+
+            if (toText is null)
+            {
+                throw new ArgumentNullException(nameof(toText));
+            }
+
             int i = s.LastIndexOf(toText, comparison);
 
             if (i >= 0)
@@ -529,11 +604,7 @@ namespace Penguin.Extensions.String
         /// <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         public static string ToLast(this string s, char toText, bool inclusive = false)
         {
-            string thisString = s;
-
-            int i = s.LastIndexOf(toText);
-
-            return s.Substring(0, s.LastIndexOf(toText) + 1);
+            return s?.Substring(0, s.LastIndexOf(toText) + (inclusive ? 1 : 0));
         }
     }
 }

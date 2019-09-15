@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Penguin.Extensions.String.Html
+namespace Penguin.Extensions.Strings.Html
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -38,6 +38,11 @@ namespace Penguin.Extensions.String.Html
         /// <returns>The value of the attribute being searched for</returns>
         public static string GetFirstAttribute(this string input, string attr)
         {
+            if(input is null)
+            {
+                return null;
+            }
+
             if (!input.Contains(attr + "="))
             {
                 return string.Empty;

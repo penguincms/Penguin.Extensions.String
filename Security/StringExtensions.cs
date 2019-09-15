@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -26,7 +27,7 @@ namespace Penguin.Extensions.String.Security
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    builder.Append(bytes[i].ToString("x2"));
+                    builder.Append(bytes[i].ToString("x2", CultureInfo.InvariantCulture));
                 }
                 return builder.ToString();
             }
@@ -47,7 +48,7 @@ namespace Penguin.Extensions.String.Security
                 foreach (byte b in hash)
                 {
                     // can be "x2" if you want lowercase
-                    sb.Append(b.ToString("x2"));
+                    sb.Append(b.ToString("x2", CultureInfo.InvariantCulture));
                 }
 
                 return sb.ToString();
@@ -66,19 +67,19 @@ namespace Penguin.Extensions.String.Security
         /// <summary>
         /// Generates a salted MD5 hash of the string
         /// </summary>
-        /// <param name="plainText">The input string</param>
+        /// <param name="input">The input string</param>
         /// <param name="saltBytes">Optional bytes to override the default salt</param>
         /// <returns>The hashed string</returns>
         public static string ComputeSha512Hash(this string input, byte[] saltBytes = null)
         {
-            if (plainText is null)
+            if (input is null)
             {
                 return null;
             }
 
             saltBytes = saltBytes ?? new byte[6] { 0, 7, 2, 6, 9, 5 };
 
-            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(input);
             byte[] plainTextWithSaltBytes = new byte[plainTextBytes.Length + saltBytes.Length];
 
             for (int i = 0; i < plainTextBytes.Length; i++)
@@ -91,25 +92,24 @@ namespace Penguin.Extensions.String.Security
                 plainTextWithSaltBytes[plainTextBytes.Length + i] = saltBytes[i];
             }
 
-            HashAlgorithm hash;
-            hash = new SHA512Managed();
-
-            byte[] hashBytes = hash.ComputeHash(plainTextWithSaltBytes);
-            byte[] hashWithSaltBytes = new byte[hashBytes.Length + saltBytes.Length];
-
-            for (int i = 0; i < hashBytes.Length; i++)
+            using (HashAlgorithm hash = new SHA512Managed())
             {
-                hashWithSaltBytes[i] = hashBytes[i];
+
+                byte[] hashBytes = hash.ComputeHash(plainTextWithSaltBytes);
+                byte[] hashWithSaltBytes = new byte[hashBytes.Length + saltBytes.Length];
+
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    hashWithSaltBytes[i] = hashBytes[i];
+                }
+
+                for (int i = 0; i < saltBytes.Length; i++)
+                {
+                    hashWithSaltBytes[hashBytes.Length + i] = saltBytes[i];
+                }
+
+                return Convert.ToBase64String(hashWithSaltBytes);
             }
-
-            for (int i = 0; i < saltBytes.Length; i++)
-            {
-                hashWithSaltBytes[hashBytes.Length + i] = saltBytes[i];
-            }
-
-            string hashValue = System.Convert.ToBase64String(hashWithSaltBytes);
-
-            return hashValue;
         }
     }
 }

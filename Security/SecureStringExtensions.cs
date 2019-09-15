@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace Penguin.Extensions.String.Security
+namespace Penguin.Extensions.Strings.Security
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
