@@ -20,7 +20,7 @@ namespace Penguin.Extensions.Strings
         /// <returns>The value without non-numeric characters</returns>
         public static string ToNumeric(this string input)
         {
-            if(input is null)
+            if (input is null)
             {
                 return null;
             }
@@ -38,7 +38,6 @@ namespace Penguin.Extensions.Strings
 
             return new string(result, 0, index);
         }
-
 
         /// <summary>
         /// Returns a list of indexes for the specified string
@@ -93,7 +92,6 @@ namespace Penguin.Extensions.Strings
         /// <returns>The substring between the nested characters</returns>
         public static string Enclose(this string input, string openingclosing, bool inclusive = true) => input.Enclose(openingclosing, openingclosing, inclusive);
 
-
         /// <summary>
         /// Finds a substring between two anchor characters. Allows for nested
         /// </summary>
@@ -105,7 +103,7 @@ namespace Penguin.Extensions.Strings
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string Enclose(this string input, string opening, string closing, bool inclusive = true)
         {
-            if(input is null)
+            if (input is null)
             {
                 return null;
             }
@@ -154,7 +152,6 @@ namespace Penguin.Extensions.Strings
             return result;
         }
 
-
         /// <summary>
         /// Returns the portion of the source string after the first instance of the delimiter
         /// </summary>
@@ -191,6 +188,32 @@ namespace Penguin.Extensions.Strings
             }
 
             return s;
+        }
+
+        /// <summary>
+        /// Splits a string on \r and \n\ (individually) and returns any "lines" in trimmed form, that are not null or whitespace
+        /// </summary>
+        /// <param name="s">The string to split</param>
+        /// <returns>Any trimmed lines that are not null or whitespace</returns>
+        public static IEnumerable<string> TrimLines(this string s)
+        {
+            if (s is null)
+            {
+                throw new ArgumentNullException(nameof(s));
+            }
+
+            foreach (string r in s.Split('\r'))
+            {
+                foreach (string n in r.Split('\n'))
+                {
+                    string t = n.Trim();
+
+                    if (!string.IsNullOrWhiteSpace(t))
+                    {
+                        yield return t;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -436,7 +459,6 @@ namespace Penguin.Extensions.Strings
             }
         }
 
-
         /// <summary>
         /// Returns the portion of a string up until the first instance of a delimiter
         /// </summary>
@@ -522,7 +544,6 @@ namespace Penguin.Extensions.Strings
 
             return source.Split(delimeter).Where(v => !string.IsNullOrWhiteSpace(v)).ToDictionary(k => k.Split(separator)[0], v => v.Split(separator)[1]);
         }
-
 
         /// <summary>
         /// Parses a string to its Int value by stripping out invalid characters

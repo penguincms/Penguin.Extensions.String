@@ -112,6 +112,13 @@
             <param name="comparison">The string comparision to use when searching for a match</param>
             <returns>The substring found after the first instance of the delimiter</returns>
         </member>
+        <member name="M:Penguin.Extensions.Strings.StringExtensions.TrimLines(System.String)">
+            <summary>
+            Splits a string on \r and \n\ (individually) and returns any "lines" in trimmed form, that are not null or whitespace
+            </summary>
+            <param name="s">The string to split</param>
+            <returns>Any trimmed lines that are not null or whitespace</returns>
+        </member>
         <member name="M:Penguin.Extensions.Strings.StringExtensions.FromLast(System.String,System.String)">
             <summary>
             Returns the portion of the source string after the last instance of the delimiter

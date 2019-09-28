@@ -6,7 +6,7 @@
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/penguincms/Penguin.Extensions.String</PackageProjectUrl>
 	<PackageIconUrl>http://www.penguinms.com/client/images/pg.png</PackageIconUrl>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
