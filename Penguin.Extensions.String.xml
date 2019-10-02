@@ -58,6 +58,36 @@
             <param name="b">The second string to compare</param>
             <returns></returns>
         </member>
+        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.ComputeSha256Hash(System.String)">
+            <summary>
+            Computes an SHA256 hash
+            </summary>
+            <param name="input">The string to hash</param>
+            <returns>The hashed string</returns>
+        </member>
+        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.ComputeSha1Hash(System.String)">
+            <summary>
+            Computes an SHA1 hash
+            </summary>
+            <param name="input">The string to hash</param>
+            <returns>The hashed string</returns>
+        </member>
+        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.SHA512(System.String,System.Byte[])">
+            <summary>
+            Generates a salted MD5 hash of the string
+            </summary>
+            <param name="plainText">The input string</param>
+            <param name="saltBytes">Optional bytes to override the default salt</param>
+            <returns>The hashed string</returns>
+        </member>
+        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.ComputeSha512Hash(System.String,System.Byte[])">
+            <summary>
+            Generates a salted MD5 hash of the string
+            </summary>
+            <param name="input">The input string</param>
+            <param name="saltBytes">Optional bytes to override the default salt</param>
+            <returns>The hashed string</returns>
+        </member>
         <member name="M:Penguin.Extensions.Strings.StringExtensions.ToNumeric(System.String)">
             <summary>
             Strips non-numeric characters from a string
@@ -245,44 +275,14 @@
             <param name="inclusive">Whether or not to return the delimiter as part of result</param>
             <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha256Hash(System.String)">
-            <summary>
-            Computes an SHA256 hash
-            </summary>
-            <param name="input">The string to hash</param>
-            <returns>The hashed string</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha1Hash(System.String)">
-            <summary>
-            Computes an SHA1 hash
-            </summary>
-            <param name="input">The string to hash</param>
-            <returns>The hashed string</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.Security.StringExtensions.SHA512(System.String,System.Byte[])">
-            <summary>
-            Generates a salted MD5 hash of the string
-            </summary>
-            <param name="plainText">The input string</param>
-            <param name="saltBytes">Optional bytes to override the default salt</param>
-            <returns>The hashed string</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha512Hash(System.String,System.Byte[])">
-            <summary>
-            Generates a salted MD5 hash of the string
-            </summary>
-            <param name="input">The input string</param>
-            <param name="saltBytes">Optional bytes to override the default salt</param>
-            <returns>The hashed string</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.Validation.StringExtensions.IsValidEmail(System.String)">
+        <member name="M:Penguin.Extensions.Strings.Validation.StringExtensions.IsValidEmail(System.String)">
             <summary>
             Attempts to validate whether or not a string represents a valid email address
             </summary>
             <param name="str">The string to validate</param>
             <returns>A bool representing whether or not the email is valid</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.Validation.StringExtensions.IsValidUrl(System.String)">
+        <member name="M:Penguin.Extensions.Strings.Validation.StringExtensions.IsValidUrl(System.String)">
             <summary>
             Attempts to validate whether or not a string represents a valid Url
             </summary>

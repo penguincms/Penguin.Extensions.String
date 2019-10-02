@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Penguin.Extensions.String.Validation
+namespace Penguin.Extensions.Strings.Validation
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
