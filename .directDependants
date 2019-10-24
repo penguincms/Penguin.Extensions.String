@@ -1,0 +1,15 @@
+Penguin.Cms.Pages
+Penguin.Cms.Security
+Penguin.Configuration.Abstractions
+Penguin.Configuration.Extensions
+Penguin.Extensions.Configuration
+Penguin.IO
+Penguin.Net.IPService
+Penguin.Net.Whois
+Penguin.Persistence.Database
+Penguin.Persistence.Repositories.EntityFramework
+Penguin.Reflection.Extensions
+Penguin.Shared.Objects
+Penguin.Web.Dynamic
+Penguin.Web.Mvc.Dynamic
+Penguin.Web.Rendering
