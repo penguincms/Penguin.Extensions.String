@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Penguin.Extensions.String.Local</name>
+        <name>Penguin.Extensions.String</name>
     </assembly>
     <members>
         <member name="M:Penguin.Extensions.Strings.Compatibility.StringExtensions.IsNullOrWhiteSpace(System.String)">
