@@ -38,7 +38,7 @@ namespace Penguin.Extensions.Strings.Html
         /// <returns>The value of the attribute being searched for</returns>
         public static string GetFirstAttribute(this string input, string attr)
         {
-            if(input is null)
+            if (input is null)
             {
                 return null;
             }

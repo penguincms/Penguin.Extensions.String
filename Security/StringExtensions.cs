@@ -17,13 +17,13 @@ namespace Penguin.Extensions.Strings.Security
         /// <returns>The hashed string</returns>
         public static string ComputeSha256Hash(this string input)
         {
-            // Create a SHA256   
+            // Create a SHA256
             using (SHA256 sha256Hash = SHA256.Create())
             {
-                // ComputeHash - returns byte array  
+                // ComputeHash - returns byte array
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
 
-                // Convert byte array to a string   
+                // Convert byte array to a string
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
@@ -94,7 +94,6 @@ namespace Penguin.Extensions.Strings.Security
 
             using (HashAlgorithm hash = new SHA512Managed())
             {
-
                 byte[] hashBytes = hash.ComputeHash(plainTextWithSaltBytes);
                 byte[] hashWithSaltBytes = new byte[hashBytes.Length + saltBytes.Length];
 
