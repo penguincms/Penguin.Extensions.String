@@ -382,21 +382,37 @@ namespace Penguin.Extensions.Strings
             return new string(toReturn);
         }
 
+        [Obsolete("Switch to SplitQuotedString")]
+        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',') => row.SplitQuotedString(delimiter);
+
         /// <summary>
         /// Splits a CSV row on the specified delimeter. Supports quoted
         /// </summary>
-        /// <param name="row">The string to split</param>
+        /// <param name="toSplit">The string to split</param>
         /// <param name="delimiter">The column delimiter</param>
         /// <returns>An IEnumerable used to obtain the split values</returns>
-        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',')
+        public static IEnumerable<string> SplitQuotedString(this IEnumerable<char> toSplit, char delimiter = ',', bool stripQuotes = true)
         {
             StringBuilder currentString = new StringBuilder();
             bool inQuotes = false;
             bool quoteIsEscaped = false; //Store when a quote has been escaped.
-            row = $"{row}{delimiter}"; //We add new cells at the delimiter, so append one for the parser.
-            foreach (var character in row.Select((val, index) => new { val, index }))
+            toSplit = toSplit.Concat(new List<char>() { delimiter }); //We add new cells at the delimiter, so append one for the parser.
+
+            int index = -1;
+
+            IEnumerator<char> CharEnumerator = toSplit.GetEnumerator();
+
+            bool hasNextChar = CharEnumerator.MoveNext();
+
+            while (hasNextChar)
             {
-                if (character.val == delimiter) //We hit a delimiter character...
+                char c = CharEnumerator.Current;
+                hasNextChar = CharEnumerator.MoveNext();
+                char nextChar = CharEnumerator.Current;
+
+                index++;
+
+                if (c == delimiter) //We hit a delimiter character...
                 {
                     if (!inQuotes) //Are we inside quotes? If not, we've hit the end of a cell value.
                     {
@@ -405,29 +421,39 @@ namespace Penguin.Extensions.Strings
                     }
                     else
                     {
-                        currentString.Append(character.val);
+                        currentString.Append(c);
                     }
                 }
                 else
                 {
-                    if (character.val != ' ')
+                    if (c != ' ')
                     {
-                        if (character.val == '"') //If we've hit a quote character...
+                        if (c == '"') //If we've hit a quote character...
                         {
-                            if (character.val == '\"' && inQuotes) //Does it appear to be a closing quote?
+                            if (inQuotes) //Does it appear to be a closing quote? //How does this even work? How can both of these be true? I didn't write this.. I dont know...
                             {
-                                if (row[character.index + 1] == character.val) //If the character afterwards is also a quote, this is to escape that (not a closing quote).
+                                if (nextChar == c && !quoteIsEscaped) //If the character afterwards is also a quote, this is to escape that (not a closing quote).
                                 {
                                     quoteIsEscaped = true; //Flag that we are escaped for the next character. Don't add the escaping quote.
+
+                                    if (!stripQuotes) //unless we want to
+                                    {
+                                        currentString.Append(c);
+                                    }
                                 }
                                 else if (quoteIsEscaped)
                                 {
                                     quoteIsEscaped = false; //This is an escaped quote. Add it and revert quoteIsEscaped to false.
-                                    currentString.Append(character.val);
+                                    currentString.Append(c);
                                 }
                                 else
                                 {
                                     inQuotes = false;
+
+                                    if(!stripQuotes)
+                                    {
+                                        currentString.Append(c);
+                                    }
                                 }
                             }
                             else
@@ -435,23 +461,28 @@ namespace Penguin.Extensions.Strings
                                 if (!inQuotes)
                                 {
                                     inQuotes = true;
+
+                                    if (!stripQuotes)
+                                    {
+                                        currentString.Append(c);
+                                    }
                                 }
                                 else
                                 {
-                                    currentString.Append(character.val); //...It's a quote inside a quote.
+                                    currentString.Append(c); //...It's a quote inside a quote.
                                 }
                             }
                         }
                         else
                         {
-                            currentString.Append(character.val);
+                            currentString.Append(c);
                         }
                     }
                     else
                     {
                         if (!string.IsNullOrWhiteSpace(currentString.ToString())) //Append only if not new cell
                         {
-                            currentString.Append(character.val);
+                            currentString.Append(c);
                         }
                     }
                 }

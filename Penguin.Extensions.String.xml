@@ -215,11 +215,11 @@
             <param name="str">The string to split</param>
             <returns>A string where each uppercase letter is preceded by a space</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.SplitCSVRow(System.String,System.Char)">
+        <member name="M:Penguin.Extensions.Strings.StringExtensions.SplitQuotedString(System.Collections.Generic.IEnumerable{System.Char},System.Char,System.Boolean)">
             <summary>
             Splits a CSV row on the specified delimeter. Supports quoted
             </summary>
-            <param name="row">The string to split</param>
+            <param name="toSplit">The string to split</param>
             <param name="delimiter">The column delimiter</param>
             <returns>An IEnumerable used to obtain the split values</returns>
         </member>
