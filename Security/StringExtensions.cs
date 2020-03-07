@@ -62,7 +62,10 @@ namespace Penguin.Extensions.Strings.Security
         /// <param name="saltBytes">Optional bytes to override the default salt</param>
         /// <returns>The hashed string</returns>
         [Obsolete("Use ComputeSha512Hash")]
-        public static string SHA512(this string plainText, byte[] saltBytes = null) => plainText.ComputeSha512Hash(saltBytes);
+        public static string SHA512(this string plainText, byte[] saltBytes = null)
+        {
+            return plainText.ComputeSha512Hash(saltBytes);
+        }
 
         /// <summary>
         /// Generates a salted MD5 hash of the string

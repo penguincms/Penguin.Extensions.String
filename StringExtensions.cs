@@ -10,7 +10,7 @@ namespace Penguin.Extensions.Strings
     public static class StringExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        private const string EmptyStringMessage = "The string to find may not be empty";
+        private const string EMPTY_STRING_MESSAGE = "The string to find may not be empty";
 
         /// <summary>
         /// Strips non-numeric characters from a string
@@ -50,7 +50,7 @@ namespace Penguin.Extensions.Strings
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException(EmptyStringMessage, nameof(value));
+                throw new ArgumentException(EMPTY_STRING_MESSAGE, nameof(value));
             }
 
             for (int index = 0; ; index++)
@@ -89,7 +89,10 @@ namespace Penguin.Extensions.Strings
         /// <param name="openingclosing">The opening and closing character</param>
         /// <param name="inclusive">Bool indicating whether or not the returned string should include the enclosing characters</param>
         /// <returns>The substring between the nested characters</returns>
-        public static string Enclose(this string input, string openingclosing, bool inclusive = true) => input.Enclose(openingclosing, openingclosing, inclusive);
+        public static string Enclose(this string input, string openingclosing, bool inclusive = true)
+        {
+            return input.Enclose(openingclosing, openingclosing, inclusive);
+        }
 
         /// <summary>
         /// Finds a substring between two anchor characters. Allows for nested
@@ -109,12 +112,12 @@ namespace Penguin.Extensions.Strings
 
             if (string.IsNullOrEmpty(opening))
             {
-                throw new ArgumentException(EmptyStringMessage, nameof(opening));
+                throw new ArgumentException(EMPTY_STRING_MESSAGE, nameof(opening));
             }
 
             if (string.IsNullOrEmpty(closing))
             {
-                throw new ArgumentException(EmptyStringMessage, nameof(closing));
+                throw new ArgumentException(EMPTY_STRING_MESSAGE, nameof(closing));
             }
 
             int count = 0;
@@ -169,7 +172,7 @@ namespace Penguin.Extensions.Strings
 
             if (string.IsNullOrEmpty(fromText))
             {
-                throw new ArgumentException(EmptyStringMessage, nameof(fromText));
+                throw new ArgumentException(EMPTY_STRING_MESSAGE, nameof(fromText));
             }
 
             int i = s.IndexOf(fromText, comparison);
@@ -265,7 +268,10 @@ namespace Penguin.Extensions.Strings
         /// <param name="str">The source string</param>
         /// <param name="count">The number of characters to return</param>
         /// <returns>A substring of the specified length from the source string</returns>
-        public static string Left(this string str, int count) => str?.Substring(0, count);
+        public static string Left(this string str, int count)
+        {
+            return str?.Substring(0, count);
+        }
 
         /// <summary>
         /// Removes all instances of the specified string, from the source (using Replace)
@@ -383,7 +389,10 @@ namespace Penguin.Extensions.Strings
         }
 
         [Obsolete("Switch to SplitQuotedString")]
-        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',') => row.SplitQuotedString(delimiter);
+        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',')
+        {
+            return row.SplitQuotedString(delimiter);
+        }
 
         /// <summary>
         /// Splits a CSV row on the specified delimeter. Supports quoted
@@ -450,7 +459,7 @@ namespace Penguin.Extensions.Strings
                                 {
                                     inQuotes = false;
 
-                                    if(!stripQuotes)
+                                    if (!stripQuotes)
                                     {
                                         currentString.Append(c);
                                     }
@@ -507,7 +516,7 @@ namespace Penguin.Extensions.Strings
 
             if (string.IsNullOrEmpty(toText))
             {
-                throw new ArgumentException(EmptyStringMessage, nameof(toText));
+                throw new ArgumentException(EMPTY_STRING_MESSAGE, nameof(toText));
             }
 
             int i = s.IndexOf(toText, comparison);
