@@ -221,6 +221,7 @@
             </summary>
             <param name="toSplit">The string to split</param>
             <param name="delimiter">The column delimiter</param>
+            <param name="stripQuotes"></param>
             <returns>An IEnumerable used to obtain the split values</returns>
         </member>
         <member name="M:Penguin.Extensions.Strings.StringExtensions.To(System.String,System.String,System.Boolean,System.StringComparison)">

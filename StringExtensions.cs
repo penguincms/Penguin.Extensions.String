@@ -399,6 +399,7 @@ namespace Penguin.Extensions.Strings
         /// </summary>
         /// <param name="toSplit">The string to split</param>
         /// <param name="delimiter">The column delimiter</param>
+        /// <param name="stripQuotes"></param>
         /// <returns>An IEnumerable used to obtain the split values</returns>
         public static IEnumerable<string> SplitQuotedString(this IEnumerable<char> toSplit, char delimiter = ',', bool stripQuotes = true)
         {

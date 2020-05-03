@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Penguin.Extensions.String
+namespace Penguin.Extensions.Strings
 {
     public static class ObjectExtensions
     {
