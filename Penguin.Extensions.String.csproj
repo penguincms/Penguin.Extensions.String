@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/penguincms/Penguin.Extensions.String</PackageProjectUrl>
-    <Version>3.0.2</Version>
+    <Version>5.0.0</Version>
     <Description>String extension methods. Contains a number of methods for validating and parsing strings. Notable methods include To, ToLast, From, FromLast, SplitCSVRow, AllIndexsOf.</Description>
     <AssemblyName>Penguin.Extensions.String</AssemblyName>
     <RootNamespace>Penguin.Extensions.String</RootNamespace>
