@@ -139,7 +139,7 @@
             <param name="s">The source string</param>
             <param name="fromText">The delimiter</param>
             <param name="inclusive">A bool indicating whether or not the delimiter should be returned with the result</param>
-            <param name="comparison">The string comparision to use when searching for a match</param>
+            <param name="comparison">The string comparison to use when searching for a match</param>
             <returns>The substring found after the first instance of the delimiter</returns>
         </member>
         <member name="M:Penguin.Extensions.Strings.StringExtensions.TrimLines(System.String)">
@@ -183,7 +183,7 @@
         </member>
         <member name="M:Penguin.Extensions.Strings.StringExtensions.ReplaceAt(System.String,System.Int32,System.Char)">
             <summary>
-            Replaces a character at the specified index with antoher character
+            Replaces a character at the specified index with another character
             </summary>
             <param name="input">The source string</param>
             <param name="index">The index at which to replace the character</param>
@@ -243,7 +243,7 @@
         </member>
         <member name="M:Penguin.Extensions.Strings.StringExtensions.ToDictionary(System.String,System.Char,System.Char)">
             <summary>
-            Splits a string into a dictionary as denoted by the provided K/V seperator and KVP delimeter characters
+            Splits a string into a dictionary as denoted by the provided K/V separator and KVP delimeter characters
             </summary>
             <param name="source">The source string to split</param>
             <param name="delimeter">The character that separates the key value pairs</param>

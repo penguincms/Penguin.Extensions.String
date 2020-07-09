@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace Penguin.Extensions.Strings
@@ -160,7 +161,7 @@ namespace Penguin.Extensions.Strings
         /// <param name="s">The source string</param>
         /// <param name="fromText">The delimiter</param>
         /// <param name="inclusive">A bool indicating whether or not the delimiter should be returned with the result</param>
-        /// <param name="comparison">The string comparision to use when searching for a match</param>
+        /// <param name="comparison">The string comparison to use when searching for a match</param>
         /// <returns>The substring found after the first instance of the delimiter</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string From(this string s, string fromText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
@@ -290,7 +291,7 @@ namespace Penguin.Extensions.Strings
         }
 
         /// <summary>
-        /// Replaces a character at the specified index with antoher character
+        /// Replaces a character at the specified index with another character
         /// </summary>
         /// <param name="input">The source string</param>
         /// <param name="index">The index at which to replace the character</param>
@@ -557,7 +558,7 @@ namespace Penguin.Extensions.Strings
         }
 
         /// <summary>
-        /// Splits a string into a dictionary as denoted by the provided K/V seperator and KVP delimeter characters
+        /// Splits a string into a dictionary as denoted by the provided K/V separator and KVP delimeter characters
         /// </summary>
         /// <param name="source">The source string to split</param>
         /// <param name="delimeter">The character that separates the key value pairs</param>
@@ -575,14 +576,37 @@ namespace Penguin.Extensions.Strings
                 return new Dictionary<string, string>();
             }
 
-            int eq = source.Count(c => c == separator);
-            int sc = source.Count(c => c == delimeter);
+            int eq;
+            int sc;
+
+            if (Vector.IsHardwareAccelerated)
+            {
+                eq = source.VectorizedCount(separator);
+
+                sc = source.VectorizedCount(delimeter);
+            }
+            else
+            {
+                eq = source.Count(c => c == separator);
+
+                sc = source.Count(c => c == delimeter);
+            }
+
             if (sc != eq - 1 && sc != eq)
             {
                 return new Dictionary<string, string>();
             }
 
-            return source.Split(delimeter).Where(v => !string.IsNullOrWhiteSpace(v)).ToDictionary(k => k.Split(separator)[0], v => v.Split(separator)[1]);
+            Dictionary<string, string> toReturn = new Dictionary<string, string>(eq);
+
+            foreach (string skvp in source.Trim(delimeter).Split(delimeter))
+            {
+                string[] vs = skvp.Split(separator);
+
+                toReturn.Add(vs[0], vs[1]);
+            }
+
+            return toReturn;
         }
 
         /// <summary>
