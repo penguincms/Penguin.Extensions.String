@@ -49,6 +49,11 @@ namespace Penguin.Extensions.Strings
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static IEnumerable<int> AllIndexesOf(this string str, string value, StringComparison comparisonType = StringComparison.Ordinal)
         {
+            if (str is null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
             if (string.IsNullOrEmpty(value))
             {
                 throw new ArgumentException(EMPTY_STRING_MESSAGE, nameof(value));
