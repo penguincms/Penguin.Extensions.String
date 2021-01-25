@@ -46,7 +46,6 @@ namespace Penguin.Extensions.Strings
         /// <param name="value">The string to find</param>
         /// <param name="comparisonType">The comparison type to pass into the index function</param>
         /// <returns>A list of indexes where the value is found</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static IEnumerable<int> AllIndexesOf(this string str, string value, StringComparison comparisonType = StringComparison.Ordinal)
         {
             if (str is null)
@@ -108,7 +107,6 @@ namespace Penguin.Extensions.Strings
         /// <param name="closing">The closing character</param>
         /// <param name="inclusive"></param>
         /// <returns>The substring between the nested characters</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string Enclose(this string input, string opening, string closing, bool inclusive = true)
         {
             if (input is null)
@@ -168,7 +166,6 @@ namespace Penguin.Extensions.Strings
         /// <param name="inclusive">A bool indicating whether or not the delimiter should be returned with the result</param>
         /// <param name="comparison">The string comparison to use when searching for a match</param>
         /// <returns>The substring found after the first instance of the delimiter</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string From(this string s, string fromText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
             if (s is null)
@@ -513,7 +510,6 @@ namespace Penguin.Extensions.Strings
         /// <param name="inclusive">A bool indicating whether or not the delimiter should be included in the return</param>
         /// <param name="comparison">String comparison options</param>
         /// <returns>The portion of a string up until the first instance of a delimiter</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static string To(this string s, string toText, bool inclusive = false, StringComparison comparison = StringComparison.Ordinal)
         {
             if (s is null)
