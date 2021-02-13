@@ -250,6 +250,22 @@
             <param name="separator">The character that separates the key and value within the pair</param>
             <returns>A dictionary representing the values</returns>
         </member>
+        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
+            <summary>
+            Converts a string to Base64 encoding
+            </summary>
+            <param name="input">the string to convert</param>
+            <param name="encoding">Optional Encoding. UTF8 default</param>
+            <returns></returns>
+        </member>
+        <member name="M:Penguin.Extensions.Strings.StringExtensions.FromBase64(System.String,System.Text.Encoding)">
+            <summary>
+            Converts a string from Base64 encoding
+            </summary>
+            <param name="input">the string to convert</param>
+            <param name="encoding">Optional Encoding. UTF8 default</param>
+            <returns></returns>
+        </member>
         <member name="M:Penguin.Extensions.Strings.StringExtensions.ToInt(System.String)">
             <summary>
             Parses a string to its Int value by stripping out invalid characters
