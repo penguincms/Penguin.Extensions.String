@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Penguin.Extensions.String;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -386,21 +387,23 @@ namespace Penguin.Extensions.Strings
         }
 
         [Obsolete("Switch to SplitQuotedString")]
-        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',') => row.SplitQuotedString(delimiter);
+        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',') => row.SplitQuotedString(new QuotedStringOptions() { ItemDelimeter = delimiter });
+
 
         /// <summary>
         /// Splits a CSV row on the specified delimeter. Supports quoted
         /// </summary>
         /// <param name="toSplit">The string to split</param>
-        /// <param name="delimiter">The column delimiter</param>
-        /// <param name="stripQuotes"></param>
+        /// <param name="options">Optional options to use when splitting</param>
         /// <returns>An IEnumerable used to obtain the split values</returns>
-        public static IEnumerable<string> SplitQuotedString(this IEnumerable<char> toSplit, char delimiter = ',', bool stripQuotes = true)
+        public static IEnumerable<string> SplitQuotedString(this IEnumerable<char> toSplit, QuotedStringOptions options = null)
         {
+            options = options ?? new QuotedStringOptions();
+
             StringBuilder currentString = new StringBuilder();
             bool inQuotes = false;
             bool quoteIsEscaped = false; //Store when a quote has been escaped.
-            toSplit = toSplit.Concat(new List<char>() { delimiter }); //We add new cells at the delimiter, so append one for the parser.
+            toSplit = toSplit.Concat(new List<char>() { options.ItemDelimeter }); //We add new cells at the delimiter, so append one for the parser.
 
             int index = -1;
 
@@ -416,7 +419,7 @@ namespace Penguin.Extensions.Strings
 
                 index++;
 
-                if (c == delimiter) //We hit a delimiter character...
+                if (c == options.ItemDelimeter) //We hit a delimiter character...
                 {
                     if (!inQuotes) //Are we inside quotes? If not, we've hit the end of a cell value.
                     {
@@ -432,7 +435,7 @@ namespace Penguin.Extensions.Strings
                 {
                     if (c != ' ')
                     {
-                        if (c == '"') //If we've hit a quote character...
+                        if (c == options.QuoteCharacter) //If we've hit a quote character...
                         {
                             if (inQuotes) //Does it appear to be a closing quote? //How does this even work? How can both of these be true? I didn't write this.. I dont know...
                             {
@@ -440,7 +443,7 @@ namespace Penguin.Extensions.Strings
                                 {
                                     quoteIsEscaped = true; //Flag that we are escaped for the next character. Don't add the escaping quote.
 
-                                    if (!stripQuotes) //unless we want to
+                                    if (!options.RemoveQuotes) //unless we want to
                                     {
                                         currentString.Append(c);
                                     }
@@ -454,7 +457,7 @@ namespace Penguin.Extensions.Strings
                                 {
                                     inQuotes = false;
 
-                                    if (!stripQuotes)
+                                    if (!options.RemoveQuotes)
                                     {
                                         currentString.Append(c);
                                     }
@@ -466,7 +469,7 @@ namespace Penguin.Extensions.Strings
                                 {
                                     inQuotes = true;
 
-                                    if (!stripQuotes)
+                                    if (!options.RemoveQuotes)
                                     {
                                         currentString.Append(c);
                                     }
