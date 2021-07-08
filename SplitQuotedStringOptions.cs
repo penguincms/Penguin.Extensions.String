@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Penguin.Extensions.String
+﻿namespace Penguin.Extensions.Strings
 {
     public class QuotedStringOptions
     {

@@ -12,12 +12,7 @@
         /// <returns>A bool representing the return of String.IsNullOrWhitespace(value)</returns>
         public static bool IsNullOrWhiteSpace(this string value)
         {
-            if (value is null)
-            {
-                return true;
-            }
-
-            return string.IsNullOrEmpty(value.Trim());
+            return value is null || string.IsNullOrEmpty(value.Trim());
         }
     }
 }

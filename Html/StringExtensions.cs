@@ -77,12 +77,7 @@ namespace Penguin.Extensions.Strings.Html
         /// <returns></returns>
         public static string InnerHtml(this string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return string.Empty;
-            }
-
-            return input.From(">").To("<");
+            return string.IsNullOrWhiteSpace(input) ? string.Empty : input.From(">").To("<");
         }
     }
 }
