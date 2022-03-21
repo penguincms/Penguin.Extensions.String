@@ -75,9 +75,6 @@ namespace Penguin.Extensions.Strings.Html
         /// </summary>
         /// <param name="input">The HTML string representing the element</param>
         /// <returns></returns>
-        public static string InnerHtml(this string input)
-        {
-            return string.IsNullOrWhiteSpace(input) ? string.Empty : input.From(">").To("<");
-        }
+        public static string InnerHtml(this string input) => string.IsNullOrWhiteSpace(input) ? string.Empty : input.From(">").To("<");
     }
 }

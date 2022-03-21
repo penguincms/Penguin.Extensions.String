@@ -10,9 +10,6 @@
         /// </summary>
         /// <param name="value">The value to check</param>
         /// <returns>A bool representing the return of String.IsNullOrWhitespace(value)</returns>
-        public static bool IsNullOrWhiteSpace(this string value)
-        {
-            return value is null || string.IsNullOrEmpty(value.Trim());
-        }
+        public static bool IsNullOrWhiteSpace(this string value) => value is null || string.IsNullOrEmpty(value.Trim());
     }
 }
