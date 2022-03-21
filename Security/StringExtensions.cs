@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -63,8 +63,6 @@ namespace Penguin.Extensions.Strings.Security
         /// <returns>The hashed string</returns>
         [Obsolete("Use ComputeSha512Hash")]
         public static string SHA512(this string plainText, byte[] saltBytes = null) => plainText.ComputeSha512Hash(saltBytes);
-
-
 
         /// <summary>
         /// Generates a salted MD5 hash of the string

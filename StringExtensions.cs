@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -387,7 +387,6 @@ namespace Penguin.Extensions.Strings
 
         [Obsolete("Switch to SplitQuotedString")]
         public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',') => row.SplitQuotedString(new QuotedStringOptions() { ItemDelimeter = delimiter });
-
 
         /// <summary>
         /// Splits a CSV row on the specified delimeter. Supports quoted

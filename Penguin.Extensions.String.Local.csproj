@@ -6,7 +6,7 @@
     <Version>5.0.5</Version>
     <Description>String extension methods. Contains a number of methods for validating and parsing strings. Notable methods include To, ToLast, From, FromLast, SplitCSVRow, AllIndexsOf.</Description>
     <AssemblyName>Penguin.Extensions.String</AssemblyName>
-    <RootNamespace>Penguin.Extensions.Strings</RootNamespace>
+    <RootNamespace>Penguin.Extensions.String</RootNamespace>
     <DocumentationFile>Penguin.Extensions.String.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
