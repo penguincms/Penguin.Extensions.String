@@ -27,8 +27,9 @@ namespace Penguin.Extensions.Strings.Security
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    builder.Append(bytes[i].ToString("x2", CultureInfo.InvariantCulture));
+                    _ = builder.Append(bytes[i].ToString("x2", CultureInfo.InvariantCulture));
                 }
+
                 return builder.ToString();
             }
         }
@@ -48,7 +49,7 @@ namespace Penguin.Extensions.Strings.Security
                 foreach (byte b in hash)
                 {
                     // can be "x2" if you want lowercase
-                    sb.Append(b.ToString("x2", CultureInfo.InvariantCulture));
+                    _ = sb.Append(b.ToString("x2", CultureInfo.InvariantCulture));
                 }
 
                 return sb.ToString();

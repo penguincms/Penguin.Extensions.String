@@ -379,6 +379,7 @@ namespace Penguin.Extensions.Strings
                 {
                     toReturn[index++] = ' ';
                 }
+
                 toReturn[index++] = str[i];
             }
 
@@ -422,11 +423,11 @@ namespace Penguin.Extensions.Strings
                     if (!inQuotes) //Are we inside quotes? If not, we've hit the end of a cell value.
                     {
                         yield return currentString.ToString();
-                        currentString.Clear();
+                        _ = currentString.Clear();
                     }
                     else
                     {
-                        currentString.Append(c);
+                        _ = currentString.Append(c);
                     }
                 }
                 else
@@ -443,13 +444,13 @@ namespace Penguin.Extensions.Strings
 
                                     if (!options.RemoveQuotes) //unless we want to
                                     {
-                                        currentString.Append(c);
+                                        _ = currentString.Append(c);
                                     }
                                 }
                                 else if (quoteIsEscaped)
                                 {
                                     quoteIsEscaped = false; //This is an escaped quote. Add it and revert quoteIsEscaped to false.
-                                    currentString.Append(c);
+                                    _ = currentString.Append(c);
                                 }
                                 else
                                 {
@@ -457,7 +458,7 @@ namespace Penguin.Extensions.Strings
 
                                     if (!options.RemoveQuotes)
                                     {
-                                        currentString.Append(c);
+                                        _ = currentString.Append(c);
                                     }
                                 }
                             }
@@ -469,25 +470,25 @@ namespace Penguin.Extensions.Strings
 
                                     if (!options.RemoveQuotes)
                                     {
-                                        currentString.Append(c);
+                                        _ = currentString.Append(c);
                                     }
                                 }
                                 else
                                 {
-                                    currentString.Append(c); //...It's a quote inside a quote.
+                                    _ = currentString.Append(c); //...It's a quote inside a quote.
                                 }
                             }
                         }
                         else
                         {
-                            currentString.Append(c);
+                            _ = currentString.Append(c);
                         }
                     }
                     else
                     {
                         if (!string.IsNullOrWhiteSpace(currentString.ToString())) //Append only if not new cell
                         {
-                            currentString.Append(c);
+                            _ = currentString.Append(c);
                         }
                     }
                 }
