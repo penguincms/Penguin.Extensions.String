@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Penguin.Extensions.Strings
+namespace Penguin.Extensions.String
 {
     public static class ObjectExtensions
     {
-        public static string Join<T>(this IEnumerable<T> source, string seperator = ", ") => string.Join(seperator, source);
+        public static string Join<T>(this IEnumerable<T> source, string seperator = ", ")
+        {
+            return string.Join(seperator, source);
+        }
     }
 }

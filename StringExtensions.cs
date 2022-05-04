@@ -1,10 +1,11 @@
+using Penguin.Extensions.String;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace Penguin.Extensions.Strings
+namespace Penguin.Extensions.String
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -94,7 +95,10 @@ namespace Penguin.Extensions.Strings
         /// <param name="openingclosing">The opening and closing character</param>
         /// <param name="inclusive">Bool indicating whether or not the returned string should include the enclosing characters</param>
         /// <returns>The substring between the nested characters</returns>
-        public static string Enclose(this string input, string openingclosing, bool inclusive = true) => input.Enclose(openingclosing, openingclosing, inclusive);
+        public static string Enclose(this string input, string openingclosing, bool inclusive = true)
+        {
+            return input.Enclose(openingclosing, openingclosing, inclusive);
+        }
 
         /// <summary>
         /// Finds a substring between two anchor characters. Allows for nested
@@ -268,7 +272,10 @@ namespace Penguin.Extensions.Strings
         /// <param name="str">The source string</param>
         /// <param name="count">The number of characters to return</param>
         /// <returns>A substring of the specified length from the source string</returns>
-        public static string Left(this string str, int count) => str?.Substring(0, count);
+        public static string Left(this string str, int count)
+        {
+            return str?.Substring(0, count);
+        }
 
         /// <summary>
         /// Removes all instances of the specified string, from the source (using Replace)
@@ -387,7 +394,10 @@ namespace Penguin.Extensions.Strings
         }
 
         [Obsolete("Switch to SplitQuotedString")]
-        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',') => row.SplitQuotedString(new QuotedStringOptions() { ItemDelimeter = delimiter });
+        public static IEnumerable<string> SplitCSVRow(this string row, char delimiter = ',')
+        {
+            return row.SplitQuotedString(new QuotedStringOptions() { ItemDelimeter = delimiter });
+        }
 
         /// <summary>
         /// Splits a CSV row on the specified delimeter. Supports quoted
@@ -546,7 +556,7 @@ namespace Penguin.Extensions.Strings
 
             char[] arr = str.ToCharArray();
 
-            arr = Array.FindAll<char>(arr, c => (char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == '-'));
+            arr = Array.FindAll(arr, c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == '-');
 
             return new string(arr);
         }
@@ -707,6 +717,9 @@ namespace Penguin.Extensions.Strings
         /// <param name="toText">The delimiter</param>
         /// <param name="inclusive">Whether or not to return the delimiter as part of result</param>
         /// <returns>A portion of a string up to the last instance of a specified delimiter</returns>
-        public static string ToLast(this string s, char toText, bool inclusive = false) => s?.Substring(0, s.LastIndexOf(toText) + (inclusive ? 1 : 0));
+        public static string ToLast(this string s, char toText, bool inclusive = false)
+        {
+            return s?.Substring(0, s.LastIndexOf(toText) + (inclusive ? 1 : 0));
+        }
     }
 }

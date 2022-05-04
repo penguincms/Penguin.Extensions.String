@@ -3,7 +3,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Penguin.Extensions.Strings
+namespace Penguin.Extensions.String
 {
     public static class StringVectorizations
     {

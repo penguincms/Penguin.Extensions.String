@@ -1,4 +1,4 @@
-﻿namespace Penguin.Extensions.Strings
+﻿namespace Penguin.Extensions.String
 {
     public class QuotedStringOptions
     {

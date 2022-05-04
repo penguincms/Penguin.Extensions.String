@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Penguin.Extensions.Strings.Security
+namespace Penguin.Extensions.String.Security
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -63,7 +63,15 @@ namespace Penguin.Extensions.Strings.Security
         /// <param name="saltBytes">Optional bytes to override the default salt</param>
         /// <returns>The hashed string</returns>
         [Obsolete("Use ComputeSha512Hash")]
-        public static string SHA512(this string plainText, byte[] saltBytes = null) => plainText.ComputeSha512Hash(saltBytes);
+        public static string SHA512(this string plainText, byte[] saltBytes = null)
+        {
+            return plainText.ComputeSha512Hash(saltBytes);
+        }
+
+        public static string ComputeSha512Hash(this string input)
+        {
+            return input.ComputeSha512Hash(new byte[6] { 0, 7, 2, 6, 9, 5 });
+        }
 
         /// <summary>
         /// Generates a salted MD5 hash of the string
@@ -71,14 +79,17 @@ namespace Penguin.Extensions.Strings.Security
         /// <param name="input">The input string</param>
         /// <param name="saltBytes">Optional bytes to override the default salt</param>
         /// <returns>The hashed string</returns>
-        public static string ComputeSha512Hash(this string input, byte[] saltBytes = null)
+        public static string ComputeSha512Hash(this string input, byte[] saltBytes)
         {
             if (input is null)
             {
                 return null;
             }
 
-            saltBytes = saltBytes ?? new byte[6] { 0, 7, 2, 6, 9, 5 };
+            if (saltBytes is null)
+            {
+                throw new ArgumentNullException(nameof(saltBytes));
+            }
 
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(input);
             byte[] plainTextWithSaltBytes = new byte[plainTextBytes.Length + saltBytes.Length];

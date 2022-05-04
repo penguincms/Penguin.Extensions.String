@@ -4,14 +4,14 @@
         <name>Penguin.Extensions.String</name>
     </assembly>
     <members>
-        <member name="M:Penguin.Extensions.Strings.Compatibility.StringExtensions.IsNullOrWhiteSpace(System.String)">
+        <member name="M:Penguin.Extensions.String.Compatibility.StringExtensions.IsNullOrWhiteSpace(System.String)">
             <summary>
             Adds the ability to call IsNullOrWhiteSpace as an extension
             </summary>
             <param name="value">The value to check</param>
             <returns>A bool representing the return of String.IsNullOrWhitespace(value)</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Html.StringExtensions.GetElementsWithAttributeValue(System.String,System.String,System.String)">
+        <member name="M:Penguin.Extensions.String.Html.StringExtensions.GetElementsWithAttributeValue(System.String,System.String,System.String)">
             <summary>
             Returns a list of strings representing HTML elements with a certain attribute value
             </summary>
@@ -20,7 +20,7 @@
             <param name="value">The value of the attribute to be searched for</param>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Html.StringExtensions.GetFirstAttribute(System.String,System.String)">
+        <member name="M:Penguin.Extensions.String.Html.StringExtensions.GetFirstAttribute(System.String,System.String)">
             <summary>
             Returns the first matching HTML attribute value in the source string
             </summary>
@@ -28,7 +28,7 @@
             <param name="attr">The Attribute to search for</param>
             <returns>The value of the attribute being searched for</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Html.StringExtensions.GetUnclosedElements(System.String,System.String)">
+        <member name="M:Penguin.Extensions.String.Html.StringExtensions.GetUnclosedElements(System.String,System.String)">
             <summary>
             Attempts to find HTML elements that are not properly closed, for validation
             </summary>
@@ -36,21 +36,21 @@
             <param name="element">The element to search for</param>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Html.StringExtensions.InnerHtml(System.String)">
+        <member name="M:Penguin.Extensions.String.Html.StringExtensions.InnerHtml(System.String)">
             <summary>
             Returns the InnerHtml of the element (text between &gt; and lt;)
             </summary>
             <param name="input">The HTML string representing the element</param>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Security.SecureStringExtensions.ToInsecureString(System.Security.SecureString)">
+        <member name="M:Penguin.Extensions.String.Security.SecureStringExtensions.ToInsecureString(System.Security.SecureString)">
             <summary>
             Converts a SecureString to a String
             </summary>
             <param name="instr">The SecureString to convert</param>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Security.SecureStringExtensions.ValueEquals(System.Security.SecureString,System.Security.SecureString)">
+        <member name="M:Penguin.Extensions.String.Security.SecureStringExtensions.ValueEquals(System.Security.SecureString,System.Security.SecureString)">
             <summary>
             Tests two SecureStrings for equality
             </summary>
@@ -58,21 +58,21 @@
             <param name="b">The second string to compare</param>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.ComputeSha256Hash(System.String)">
+        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha256Hash(System.String)">
             <summary>
             Computes an SHA256 hash
             </summary>
             <param name="input">The string to hash</param>
             <returns>The hashed string</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.ComputeSha1Hash(System.String)">
+        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha1Hash(System.String)">
             <summary>
             Computes an SHA1 hash
             </summary>
             <param name="input">The string to hash</param>
             <returns>The hashed string</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.SHA512(System.String,System.Byte[])">
+        <member name="M:Penguin.Extensions.String.Security.StringExtensions.SHA512(System.String,System.Byte[])">
             <summary>
             Generates a salted MD5 hash of the string
             </summary>
@@ -80,7 +80,7 @@
             <param name="saltBytes">Optional bytes to override the default salt</param>
             <returns>The hashed string</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Security.StringExtensions.ComputeSha512Hash(System.String,System.Byte[])">
+        <member name="M:Penguin.Extensions.String.Security.StringExtensions.ComputeSha512Hash(System.String,System.Byte[])">
             <summary>
             Generates a salted MD5 hash of the string
             </summary>
@@ -88,14 +88,14 @@
             <param name="saltBytes">Optional bytes to override the default salt</param>
             <returns>The hashed string</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToNumeric(System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToNumeric(System.String)">
             <summary>
             Strips non-numeric characters from a string
             </summary>
             <param name="input">The original value</param>
             <returns>The value without non-numeric characters</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.AllIndexesOf(System.String,System.String,System.StringComparison)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.AllIndexesOf(System.String,System.String,System.StringComparison)">
             <summary>
             Returns a list of indexes for the specified string
             </summary>
@@ -104,7 +104,7 @@
             <param name="comparisonType">The comparison type to pass into the index function</param>
             <returns>A list of indexes where the value is found</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.Contains(System.String,System.String,System.StringComparison)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Contains(System.String,System.String,System.StringComparison)">
             <summary>
             Checks if the parent string contains the substring, with optional case inequality
             </summary>
@@ -113,7 +113,7 @@
             <param name="comparisonType">The comparison type to pass into the index function</param>
             <returns>A value indicating if the substring was found</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.Enclose(System.String,System.String,System.Boolean)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Enclose(System.String,System.String,System.Boolean)">
             <summary>
             Finds a substring between two anchor characters. Allows for nested
             </summary>
@@ -122,7 +122,7 @@
             <param name="inclusive">Bool indicating whether or not the returned string should include the enclosing characters</param>
             <returns>The substring between the nested characters</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.Enclose(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Enclose(System.String,System.String,System.String,System.Boolean)">
             <summary>
             Finds a substring between two anchor characters. Allows for nested
             </summary>
@@ -132,7 +132,7 @@
             <param name="inclusive"></param>
             <returns>The substring between the nested characters</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.From(System.String,System.String,System.Boolean,System.StringComparison)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.From(System.String,System.String,System.Boolean,System.StringComparison)">
             <summary>
             Returns the portion of the source string after the first instance of the delimiter
             </summary>
@@ -142,14 +142,14 @@
             <param name="comparison">The string comparison to use when searching for a match</param>
             <returns>The substring found after the first instance of the delimiter</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.TrimLines(System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.TrimLines(System.String)">
             <summary>
             Splits a string on \r and \n\ (individually) and returns any "lines" in trimmed form, that are not null or whitespace
             </summary>
             <param name="s">The string to split</param>
             <returns>Any trimmed lines that are not null or whitespace</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.FromLast(System.String,System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.FromLast(System.String,System.String)">
             <summary>
             Returns the portion of the source string after the last instance of the delimiter
             </summary>
@@ -157,7 +157,7 @@
             <param name="fromText">The delimiter</param>
             <returns>The substring found after the last instance of the delimiter</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.FromLast(System.String,System.Char)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.FromLast(System.String,System.Char)">
             <summary>
             Returns the portion of the source string after the last instance of the delimiter
             </summary>
@@ -165,7 +165,7 @@
             <param name="fromText">The delimiter</param>
             <returns>The substring found after the last instance of the delimiter</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.Left(System.String,System.Int32)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Left(System.String,System.Int32)">
             <summary>
             Returns the leftmost portion of a string of a specified length
             </summary>
@@ -173,7 +173,7 @@
             <param name="count">The number of characters to return</param>
             <returns>A substring of the specified length from the source string</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.Remove(System.String,System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Remove(System.String,System.String)">
             <summary>
             Removes all instances of the specified string, from the source (using Replace)
             </summary>
@@ -181,7 +181,7 @@
             <param name="toRemove">The substring to remove</param>
             <returns>The source string without any instances of the specified substring</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ReplaceAt(System.String,System.Int32,System.Char)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ReplaceAt(System.String,System.Int32,System.Char)">
             <summary>
             Replaces a character at the specified index with another character
             </summary>
@@ -190,7 +190,7 @@
             <param name="newChar">The new character to insert</param>
             <returns>A new string with the character replaced</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.Right(System.String,System.Int32)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Right(System.String,System.Int32)">
             <summary>
             Returns the rightmost portion of a string of a specified length
             </summary>
@@ -198,7 +198,7 @@
             <param name="count">The number of characters to return</param>
             <returns>The rightmost portion of the source string of a specified length</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.Split(System.String,System.String,System.Boolean,System.StringSplitOptions)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.Split(System.String,System.String,System.Boolean,System.StringSplitOptions)">
             <summary>
             Splits a string on a delimiter
             </summary>
@@ -208,14 +208,14 @@
             <param name="options">String split options for the initial split</param>
             <returns>An array of strings</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.SplitCamelCase(System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.SplitCamelCase(System.String)">
             <summary>
             Splits a CamelCase string on each uppercase letter by adding a space in front of each
             </summary>
             <param name="str">The string to split</param>
             <returns>A string where each uppercase letter is preceded by a space</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.SplitQuotedString(System.Collections.Generic.IEnumerable{System.Char},Penguin.Extensions.Strings.QuotedStringOptions)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.SplitQuotedString(System.Collections.Generic.IEnumerable{System.Char},Penguin.Extensions.String.QuotedStringOptions)">
             <summary>
             Splits a CSV row on the specified delimeter. Supports quoted
             </summary>
@@ -223,7 +223,7 @@
             <param name="options">Optional options to use when splitting</param>
             <returns>An IEnumerable used to obtain the split values</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.To(System.String,System.String,System.Boolean,System.StringComparison)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.To(System.String,System.String,System.Boolean,System.StringComparison)">
             <summary>
             Returns the portion of a string up until the first instance of a delimiter
             </summary>
@@ -233,14 +233,14 @@
             <param name="comparison">String comparison options</param>
             <returns>The portion of a string up until the first instance of a delimiter</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToAlphaNumeric(System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToAlphaNumeric(System.String)">
             <summary>
             Strips non-alphanumeric characters from the string
             </summary>
             <param name="str">The source string</param>
             <returns>The source string in AlphaNumeric</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToDictionary(System.String,System.Char,System.Char)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToDictionary(System.String,System.Char,System.Char)">
             <summary>
             Splits a string into a dictionary as denoted by the provided K/V separator and KVP delimeter characters
             </summary>
@@ -249,7 +249,7 @@
             <param name="separator">The character that separates the key and value within the pair</param>
             <returns>A dictionary representing the values</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
             <summary>
             Converts a string to Base64 encoding
             </summary>
@@ -257,7 +257,7 @@
             <param name="encoding">Optional Encoding. UTF8 default</param>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.FromBase64(System.String,System.Text.Encoding)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.FromBase64(System.String,System.Text.Encoding)">
             <summary>
             Converts a string from Base64 encoding
             </summary>
@@ -265,14 +265,14 @@
             <param name="encoding">Optional Encoding. UTF8 default</param>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToInt(System.String)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToInt(System.String)">
             <summary>
             Parses a string to its Int value by stripping out invalid characters
             </summary>
             <param name="input">The input string to parse</param>
             <returns>An integer representing the string value, or 0 if empty</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToLast(System.String,System.String,System.Boolean,System.StringComparison)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToLast(System.String,System.String,System.Boolean,System.StringComparison)">
             <summary>
             Returns a portion of a string up to the last instance of a specified delimiter
             </summary>
@@ -282,7 +282,7 @@
             <param name="comparison">The string comparison to use when searching</param>
             <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.StringExtensions.ToLast(System.String,System.Char,System.Boolean)">
+        <member name="M:Penguin.Extensions.String.StringExtensions.ToLast(System.String,System.Char,System.Boolean)">
             <summary>
             Returns a portion of a string up to the last instance of a specified delimiter
             </summary>
@@ -291,14 +291,14 @@
             <param name="inclusive">Whether or not to return the delimiter as part of result</param>
             <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Validation.StringExtensions.IsValidEmail(System.String)">
+        <member name="M:Penguin.Extensions.String.Validation.StringExtensions.IsValidEmail(System.String)">
             <summary>
             Attempts to validate whether or not a string represents a valid email address
             </summary>
             <param name="str">The string to validate</param>
             <returns>A bool representing whether or not the email is valid</returns>
         </member>
-        <member name="M:Penguin.Extensions.Strings.Validation.StringExtensions.IsValidUrl(System.String)">
+        <member name="M:Penguin.Extensions.String.Validation.StringExtensions.IsValidUrl(System.String)">
             <summary>
             Attempts to validate whether or not a string represents a valid Url
             </summary>

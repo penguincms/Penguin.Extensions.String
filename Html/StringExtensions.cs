@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Penguin.Extensions.Strings.Html
+namespace Penguin.Extensions.String.Html
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -75,6 +75,9 @@ namespace Penguin.Extensions.Strings.Html
         /// </summary>
         /// <param name="input">The HTML string representing the element</param>
         /// <returns></returns>
-        public static string InnerHtml(this string input) => string.IsNullOrWhiteSpace(input) ? string.Empty : input.From(">").To("<");
+        public static string InnerHtml(this string input)
+        {
+            return string.IsNullOrWhiteSpace(input) ? string.Empty : input.From(">").To("<");
+        }
     }
 }
