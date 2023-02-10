@@ -47,7 +47,7 @@ namespace Penguin.Extensions.String.Html
         /// <param name="input">The input string to search</param>
         /// <param name="element">The element to search for</param>
         /// <returns></returns>
-        public static List<string> GetUnclosedElements(this string input, string element)
+        public static IList<string> GetUnclosedElements(this string input, string element)
         {
             string[] starts = input.Split("<" + element, true);
 
