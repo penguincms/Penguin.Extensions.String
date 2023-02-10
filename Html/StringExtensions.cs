@@ -20,7 +20,7 @@ namespace Penguin.Extensions.String.Html
         {
             MatchCollection matches = Regex.Matches(input, "<.*\\s" + attr + "=.*([^a-z]|\")" + value + "([^a-z]|\").*?>.*?>");
 
-            List<string> output = new List<string>();
+            List<string> output = new();
 
             foreach (Match thisMatch in matches)
             {
@@ -38,19 +38,7 @@ namespace Penguin.Extensions.String.Html
         /// <returns>The value of the attribute being searched for</returns>
         public static string GetFirstAttribute(this string input, string attr)
         {
-            if (input is null)
-            {
-                return null;
-            }
-
-            if (!input.Contains(attr + "="))
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return input.From(attr).Enclose("\"", false);
-            }
+            return input is null ? null : !input.Contains(attr + "=") ? string.Empty : input.From(attr).Enclose("\"", false);
         }
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace Penguin.Extensions.String
                 Vector<ushort> partials = Vector<ushort>.Zero;
 
                 // SIMD register with the target character c copied in every position
-                Vector<ushort> vc = new Vector<ushort>(c);
+                Vector<ushort> vc = new(c);
 
                 for (; i <= end; i += Vector<ushort>.Count)
                 {

@@ -1,4 +1,3 @@
-using Penguin.Extensions.String;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,12 +79,12 @@ namespace Penguin.Extensions.String
         /// <returns>A value indicating if the substring was found</returns>
         public static bool Contains(this string s, string search, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (s is null)
+            if(s is null)
             {
                 return false;
             }
 
-            return s.IndexOf(search, comparisonType) >= 0;
+            return s.Contains(search, comparisonType);
         }
 
         /// <summary>
@@ -151,7 +150,7 @@ namespace Penguin.Extensions.String
                 if (started && count == 0)
                 {
                     int closingIndex = i + (inclusive ? closing.Length : 0);
-                    result = input.Substring(openingIndex, closingIndex - openingIndex);
+                    result = input[openingIndex..closingIndex];
                     break;
                 }
             }
@@ -181,19 +180,7 @@ namespace Penguin.Extensions.String
 
             int i = s.IndexOf(fromText, comparison);
 
-            if (i >= 0)
-            {
-                if (inclusive)
-                {
-                    return s.Substring(i);
-                }
-                else
-                {
-                    return s.Substring(i + fromText.Length);
-                }
-            }
-
-            return s;
+            return i >= 0 ? inclusive ? s[i..] : s[(i + fromText.Length)..] : s;
         }
 
         /// <summary>
@@ -242,12 +229,7 @@ namespace Penguin.Extensions.String
 
             int i = s.LastIndexOf(fromText, StringComparison.OrdinalIgnoreCase);
 
-            if (i >= 0)
-            {
-                return s.Substring(i + fromText.Length);
-            }
-
-            return s;
+            return i >= 0 ? s[(i + fromText.Length)..] : s;
         }
 
         /// <summary>
@@ -258,12 +240,7 @@ namespace Penguin.Extensions.String
         /// <returns>The substring found after the last instance of the delimiter</returns>
         public static string FromLast(this string s, char fromText)
         {
-            if (s is null)
-            {
-                return null;
-            }
-
-            return s.Substring(s.LastIndexOf(fromText) + 1);
+            return s?[(s.LastIndexOf(fromText) + 1)..];
         }
 
         /// <summary>
@@ -274,7 +251,7 @@ namespace Penguin.Extensions.String
         /// <returns>A substring of the specified length from the source string</returns>
         public static string Left(this string str, int count)
         {
-            return str?.Substring(0, count);
+            return str?[..count];
         }
 
         /// <summary>
@@ -285,12 +262,7 @@ namespace Penguin.Extensions.String
         /// <returns>The source string without any instances of the specified substring</returns>
         public static string Remove(this string input, string toRemove)
         {
-            if (input is null)
-            {
-                return input;
-            }
-
-            return input.Replace(toRemove, string.Empty);
+            return input is null ? input : input.Replace(toRemove, string.Empty);
         }
 
         /// <summary>
@@ -320,12 +292,7 @@ namespace Penguin.Extensions.String
         /// <returns>The rightmost portion of the source string of a specified length</returns>
         public static string Right(this string str, int count)
         {
-            if (str is null)
-            {
-                return null;
-            }
-
-            return str.Substring(str.Length - count);
+            return str?[^count..];
         }
 
         /// <summary>
@@ -405,11 +372,12 @@ namespace Penguin.Extensions.String
         /// <param name="toSplit">The string to split</param>
         /// <param name="options">Optional options to use when splitting</param>
         /// <returns>An IEnumerable used to obtain the split values</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
         public static IEnumerable<string> SplitQuotedString(this IEnumerable<char> toSplit, QuotedStringOptions options = null)
         {
-            options = options ?? new QuotedStringOptions();
+            options ??= new QuotedStringOptions();
 
-            StringBuilder currentString = new StringBuilder();
+            StringBuilder currentString = new();
             bool inQuotes = false;
             bool quoteIsEscaped = false; //Store when a quote has been escaped.
             toSplit = toSplit.Concat(new List<char>() { options.ItemDelimeter }); //We add new cells at the delimiter, so append one for the parser.
@@ -527,19 +495,7 @@ namespace Penguin.Extensions.String
 
             int i = s.IndexOf(toText, comparison);
 
-            if (i >= 0)
-            {
-                if (inclusive)
-                {
-                    return s.Substring(0, i + toText.Length);
-                }
-                else
-                {
-                    return s.Substring(0, i);
-                }
-            }
-
-            return s;
+            return i >= 0 ? inclusive ? s[..(i + toText.Length)] : s[..i] : s;
         }
 
         /// <summary>
@@ -601,7 +557,7 @@ namespace Penguin.Extensions.String
                 return new Dictionary<string, string>();
             }
 
-            Dictionary<string, string> toReturn = new Dictionary<string, string>(eq);
+            Dictionary<string, string> toReturn = new(eq);
 
             foreach (string skvp in source.Trim(delimeter).Split(delimeter))
             {
@@ -621,9 +577,7 @@ namespace Penguin.Extensions.String
         /// <returns></returns>
         public static string ToBase64(this string input, Encoding encoding = null)
         {
-            encoding = encoding ?? Encoding.UTF8;
-
-            return Convert.ToBase64String(encoding.GetBytes(input));
+            return Convert.ToBase64String((encoding ?? Encoding.UTF8).GetBytes(input));
         }
 
         /// <summary>
@@ -634,9 +588,7 @@ namespace Penguin.Extensions.String
         /// <returns></returns>
         public static string FromBase64(this string input, Encoding encoding = null)
         {
-            encoding = encoding ?? Encoding.UTF8;
-
-            return encoding.GetString(Convert.FromBase64String(input));
+            return (encoding ?? Encoding.UTF8).GetString(Convert.FromBase64String(input));
         }
 
         /// <summary>
@@ -663,14 +615,7 @@ namespace Penguin.Extensions.String
                 }
             }
 
-            if (index == 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return int.Parse(new string(toReturn, 0, index));
-            }
+            return index == 0 ? 0 : int.Parse(new string(toReturn, 0, index));
         }
 
         /// <summary>
@@ -695,19 +640,7 @@ namespace Penguin.Extensions.String
 
             int i = s.LastIndexOf(toText, comparison);
 
-            if (i >= 0)
-            {
-                if (inclusive)
-                {
-                    return s.Substring(0, i + toText.Length);
-                }
-                else
-                {
-                    return s.Substring(0, i);
-                }
-            }
-
-            return s;
+            return i >= 0 ? inclusive ? s[..(i + toText.Length)] : s[..i] : s;
         }
 
         /// <summary>
@@ -719,7 +652,7 @@ namespace Penguin.Extensions.String
         /// <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         public static string ToLast(this string s, char toText, bool inclusive = false)
         {
-            return s?.Substring(0, s.LastIndexOf(toText) + (inclusive ? 1 : 0));
+            return s?[..(s.LastIndexOf(toText) + (inclusive ? 1 : 0))];
         }
     }
 }

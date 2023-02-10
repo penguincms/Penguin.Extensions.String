@@ -18,20 +18,18 @@ namespace Penguin.Extensions.String.Security
         public static string ComputeSha256Hash(this string input)
         {
             // Create a SHA256
-            using (SHA256 sha256Hash = SHA256.Create())
+            using SHA256 sha256Hash = SHA256.Create();
+            // ComputeHash - returns byte array
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Convert byte array to a string
+            StringBuilder builder = new();
+            for (int i = 0; i < bytes.Length; i++)
             {
-                // ComputeHash - returns byte array
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-                // Convert byte array to a string
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    _ = builder.Append(bytes[i].ToString("x2", CultureInfo.InvariantCulture));
-                }
-
-                return builder.ToString();
+                _ = builder.Append(bytes[i].ToString("x2", CultureInfo.InvariantCulture));
             }
+
+            return builder.ToString();
         }
 
         /// <summary>
@@ -41,19 +39,17 @@ namespace Penguin.Extensions.String.Security
         /// <returns>The hashed string</returns>
         public static string ComputeSha1Hash(this string input)
         {
-            using (SHA1Managed sha1 = new SHA1Managed())
+            using SHA1Managed sha1 = new();
+            byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sb = new(hash.Length * 2);
+
+            foreach (byte b in hash)
             {
-                byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
-                StringBuilder sb = new StringBuilder(hash.Length * 2);
-
-                foreach (byte b in hash)
-                {
-                    // can be "x2" if you want lowercase
-                    _ = sb.Append(b.ToString("x2", CultureInfo.InvariantCulture));
-                }
-
-                return sb.ToString();
+                // can be "x2" if you want lowercase
+                _ = sb.Append(b.ToString("x2", CultureInfo.InvariantCulture));
             }
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -104,23 +100,21 @@ namespace Penguin.Extensions.String.Security
                 plainTextWithSaltBytes[plainTextBytes.Length + i] = saltBytes[i];
             }
 
-            using (HashAlgorithm hash = new SHA512Managed())
+            using HashAlgorithm hash = new SHA512Managed();
+            byte[] hashBytes = hash.ComputeHash(plainTextWithSaltBytes);
+            byte[] hashWithSaltBytes = new byte[hashBytes.Length + saltBytes.Length];
+
+            for (int i = 0; i < hashBytes.Length; i++)
             {
-                byte[] hashBytes = hash.ComputeHash(plainTextWithSaltBytes);
-                byte[] hashWithSaltBytes = new byte[hashBytes.Length + saltBytes.Length];
-
-                for (int i = 0; i < hashBytes.Length; i++)
-                {
-                    hashWithSaltBytes[i] = hashBytes[i];
-                }
-
-                for (int i = 0; i < saltBytes.Length; i++)
-                {
-                    hashWithSaltBytes[hashBytes.Length + i] = saltBytes[i];
-                }
-
-                return Convert.ToBase64String(hashWithSaltBytes);
+                hashWithSaltBytes[i] = hashBytes[i];
             }
+
+            for (int i = 0; i < saltBytes.Length; i++)
+            {
+                hashWithSaltBytes[hashBytes.Length + i] = saltBytes[i];
+            }
+
+            return Convert.ToBase64String(hashWithSaltBytes);
         }
     }
 }
