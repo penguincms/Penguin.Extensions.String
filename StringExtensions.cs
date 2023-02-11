@@ -79,7 +79,7 @@ namespace Penguin.Extensions.String
         /// <returns>A value indicating if the substring was found</returns>
         public static bool Contains(this string s, string search, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if(s is null)
+            if (s is null)
             {
                 return false;
             }
@@ -366,112 +366,7 @@ namespace Penguin.Extensions.String
             return row.SplitQuotedString(new QuotedStringOptions() { ItemDelimeter = delimiter });
         }
 
-        /// <summary>
-        /// Splits a CSV row on the specified delimeter. Supports quoted
-        /// </summary>
-        /// <param name="toSplit">The string to split</param>
-        /// <param name="options">Optional options to use when splitting</param>
-        /// <returns>An IEnumerable used to obtain the split values</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
-        public static IEnumerable<string> SplitQuotedString(this IEnumerable<char> toSplit, QuotedStringOptions options = null)
-        {
-            options ??= new QuotedStringOptions();
-
-            StringBuilder currentString = new();
-            bool inQuotes = false;
-            bool quoteIsEscaped = false; //Store when a quote has been escaped.
-            toSplit = toSplit.Concat(new List<char>() { options.ItemDelimeter }); //We add new cells at the delimiter, so append one for the parser.
-
-            int index = -1;
-
-            IEnumerator<char> CharEnumerator = toSplit.GetEnumerator();
-
-            bool hasNextChar = CharEnumerator.MoveNext();
-
-            while (hasNextChar)
-            {
-                char c = CharEnumerator.Current;
-                hasNextChar = CharEnumerator.MoveNext();
-                char nextChar = CharEnumerator.Current;
-
-                index++;
-
-                if (c == options.ItemDelimeter) //We hit a delimiter character...
-                {
-                    if (!inQuotes) //Are we inside quotes? If not, we've hit the end of a cell value.
-                    {
-                        yield return currentString.ToString();
-                        _ = currentString.Clear();
-                    }
-                    else
-                    {
-                        _ = currentString.Append(c);
-                    }
-                }
-                else
-                {
-                    if (c != ' ')
-                    {
-                        if (c == options.QuoteCharacter) //If we've hit a quote character...
-                        {
-                            if (inQuotes) //Does it appear to be a closing quote? //How does this even work? How can both of these be true? I didn't write this.. I dont know...
-                            {
-                                if (nextChar == c && !quoteIsEscaped) //If the character afterwards is also a quote, this is to escape that (not a closing quote).
-                                {
-                                    quoteIsEscaped = true; //Flag that we are escaped for the next character. Don't add the escaping quote.
-
-                                    if (!options.RemoveQuotes) //unless we want to
-                                    {
-                                        _ = currentString.Append(c);
-                                    }
-                                }
-                                else if (quoteIsEscaped)
-                                {
-                                    quoteIsEscaped = false; //This is an escaped quote. Add it and revert quoteIsEscaped to false.
-                                    _ = currentString.Append(c);
-                                }
-                                else
-                                {
-                                    inQuotes = false;
-
-                                    if (!options.RemoveQuotes)
-                                    {
-                                        _ = currentString.Append(c);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (!inQuotes)
-                                {
-                                    inQuotes = true;
-
-                                    if (!options.RemoveQuotes)
-                                    {
-                                        _ = currentString.Append(c);
-                                    }
-                                }
-                                else
-                                {
-                                    _ = currentString.Append(c); //...It's a quote inside a quote.
-                                }
-                            }
-                        }
-                        else
-                        {
-                            _ = currentString.Append(c);
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrWhiteSpace(currentString.ToString())) //Append only if not new cell
-                        {
-                            _ = currentString.Append(c);
-                        }
-                    }
-                }
-            }
-        }
+       
 
         /// <summary>
         /// Returns the portion of a string up until the first instance of a delimiter
