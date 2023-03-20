@@ -132,46 +132,12 @@
             <param name="inclusive"></param>
             <returns>The substring between the nested characters</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.From(System.String,System.String,System.Boolean,System.StringComparison)">
-            <summary>
-            Returns the portion of the source string after the first instance of the delimiter
-            </summary>
-            <param name="s">The source string</param>
-            <param name="fromText">The delimiter</param>
-            <param name="inclusive">A bool indicating whether or not the delimiter should be returned with the result</param>
-            <param name="comparison">The string comparison to use when searching for a match</param>
-            <returns>The substring found after the first instance of the delimiter</returns>
-        </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.TrimLines(System.String)">
             <summary>
             Splits a string on \r and \n\ (individually) and returns any "lines" in trimmed form, that are not null or whitespace
             </summary>
             <param name="s">The string to split</param>
             <returns>Any trimmed lines that are not null or whitespace</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.FromLast(System.String,System.String)">
-            <summary>
-            Returns the portion of the source string after the last instance of the delimiter
-            </summary>
-            <param name="s">The source string</param>
-            <param name="fromText">The delimiter</param>
-            <returns>The substring found after the last instance of the delimiter</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.FromLast(System.String,System.Char)">
-            <summary>
-            Returns the portion of the source string after the last instance of the delimiter
-            </summary>
-            <param name="s">The source string</param>
-            <param name="fromText">The delimiter</param>
-            <returns>The substring found after the last instance of the delimiter</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.Left(System.String,System.Int32)">
-            <summary>
-            Returns the leftmost portion of a string of a specified length
-            </summary>
-            <param name="str">The source string</param>
-            <param name="count">The number of characters to return</param>
-            <returns>A substring of the specified length from the source string</returns>
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.Remove(System.String,System.String)">
             <summary>
@@ -190,64 +156,12 @@
             <param name="newChar">The new character to insert</param>
             <returns>A new string with the character replaced</returns>
         </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.Right(System.String,System.Int32)">
-            <summary>
-            Returns the rightmost portion of a string of a specified length
-            </summary>
-            <param name="str">The source string</param>
-            <param name="count">The number of characters to return</param>
-            <returns>The rightmost portion of the source string of a specified length</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.Split(System.String,System.String,System.Boolean,System.StringSplitOptions)">
-            <summary>
-            Splits a string on a delimiter
-            </summary>
-            <param name="input">The source string</param>
-            <param name="spliton">The delimiter to split on</param>
-            <param name="preserveSplit">A bool indicating whether or not to append the delimiter back to the results</param>
-            <param name="options">String split options for the initial split</param>
-            <returns>An array of strings</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.SplitCamelCase(System.String)">
-            <summary>
-            Splits a CamelCase string on each uppercase letter by adding a space in front of each
-            </summary>
-            <param name="str">The string to split</param>
-            <returns>A string where each uppercase letter is preceded by a space</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.SplitQuotedString(System.Collections.Generic.IEnumerable{System.Char},Penguin.Extensions.String.QuotedStringOptions)">
-            <summary>
-            Splits a CSV row on the specified delimeter. Supports quoted
-            </summary>
-            <param name="toSplit">The string to split</param>
-            <param name="options">Optional options to use when splitting</param>
-            <returns>An IEnumerable used to obtain the split values</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.To(System.String,System.String,System.Boolean,System.StringComparison)">
-            <summary>
-            Returns the portion of a string up until the first instance of a delimiter
-            </summary>
-            <param name="s">The source</param>
-            <param name="toText">The delimeter</param>
-            <param name="inclusive">A bool indicating whether or not the delimiter should be included in the return</param>
-            <param name="comparison">String comparison options</param>
-            <returns>The portion of a string up until the first instance of a delimiter</returns>
-        </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.ToAlphaNumeric(System.String)">
             <summary>
             Strips non-alphanumeric characters from the string
             </summary>
             <param name="str">The source string</param>
             <returns>The source string in AlphaNumeric</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.ToDictionary(System.String,System.Char,System.Char)">
-            <summary>
-            Splits a string into a dictionary as denoted by the provided K/V separator and KVP delimeter characters
-            </summary>
-            <param name="source">The source string to split</param>
-            <param name="delimeter">The character that separates the key value pairs</param>
-            <param name="separator">The character that separates the key and value within the pair</param>
-            <returns>A dictionary representing the values</returns>
         </member>
         <member name="M:Penguin.Extensions.String.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
             <summary>
@@ -271,25 +185,6 @@
             </summary>
             <param name="input">The input string to parse</param>
             <returns>An integer representing the string value, or 0 if empty</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.ToLast(System.String,System.String,System.Boolean,System.StringComparison)">
-            <summary>
-            Returns a portion of a string up to the last instance of a specified delimiter
-            </summary>
-            <param name="s">The source string</param>
-            <param name="toText">The delimiter</param>
-            <param name="inclusive">Whether or not to return the delimiter as part of result</param>
-            <param name="comparison">The string comparison to use when searching</param>
-            <returns>A portion of a string up to the last instance of a specified delimiter</returns>
-        </member>
-        <member name="M:Penguin.Extensions.String.StringExtensions.ToLast(System.String,System.Char,System.Boolean)">
-            <summary>
-            Returns a portion of a string up to the last instance of a specified delimiter
-            </summary>
-            <param name="s">The source string</param>
-            <param name="toText">The delimiter</param>
-            <param name="inclusive">Whether or not to return the delimiter as part of result</param>
-            <returns>A portion of a string up to the last instance of a specified delimiter</returns>
         </member>
         <member name="M:Penguin.Extensions.String.Validation.StringExtensions.IsValidEmail(System.String)">
             <summary>
